@@ -7,6 +7,7 @@ So, these are the firmware will be supported soon:
 * G710N30g / 30d (it's NULM when you crossflashed it with AWM/EM firmware in G7 Korean's model, and vice versa)
 * G710EMW30e (I need tester on this so yeah.)
 
+Planning to support Android 9 or 8 either. But i'll try
 
 Although V40 and V35 should be supported once the tool is stable enough cause the unlock guide is the same but I didn't have time to download the firmware one by one to get their abl lol. Thanks for reading.
 
