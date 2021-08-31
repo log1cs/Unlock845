@@ -4,7 +4,7 @@ So, these are the firmware will be supported soon:
 * G710EM30f
 * G710ULM30f (if you crossflashed it with EM firmware on ULM/VM devices)
 * G710AWM30d / 30b (it's ULM when you crossflashed it with ULM/VM devices)
-* G710N30g / 30d (it's NULM when you crossflashed it with AWM/EM firmware in G7 Korean's model)
+* G710N30g / 30d (it's NULM when you crossflashed it with AWM/EM firmware in G7 Korean's model, and vice versa)
 * G710EMW30e (I need tester on this so yeah.)
 
 
