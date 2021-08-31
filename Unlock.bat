@@ -20,5 +20,13 @@ fastboot reboot bootloader
 timeout 3
 echo Checking your unlocked state:
 fastboot getvar unlocked
-set /p abl1 = "Enter your stock firmware to flash your stock firmware's abl(under development, will release soon): 
+echo Rebooting to EDL...
+fastboot oem edl
+timeout 5
+QFIL.exe -Mode=3 -COM=%var1% -RawProgram=rawprogram0.xml,rawprogram1.xml,rawprogram2.xml,rawprogram3.xml,rawprogram5.xml,rawprogram6.xml -Sahara=true -SEARCHPATH=C:\Unlock845 -RESETAFTERDOWNLOAD=true -AckRawDataEveryNumPackets=TRUE;100 -FLATBUILDPATH=C:\Unlock845 -PROGRAMMER=true;"C:\Unlock845\prog_ufs_firehose_Sdm845_lge.elf" -DEVICETYPE=ufs -DOWNLOADFLAT -RESETTIMEOUT=”10”
+echo Waiting for the device to reboot...
+timeout 10
+echo NOW IMMIDIATELY HOLD YOUR VOLUME+ KEY TO GO TO THE DOWNLOAD MODE
+echo Bootloader unlock successfully, now go to the Download mode and flash your KDZ using Refurbish/Partition DL!
+echo Thanks for using the tool!
 pause
