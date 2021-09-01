@@ -1,7 +1,0 @@
-<?xml version="1.0" ?>
-<data>
-	<program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="B.PrimaryGPT_0.bin" label="PrimaryGPT" num_partition_sectors="6" physical_partition_number="1" size_in_KB="24" sparse="false" start_byte_hex="0x0" start_sector="0"/>
-	<program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="B.BackupGPT_2043.bin" label="BackupGPT" num_partition_sectors="5" physical_partition_number="1" size_in_KB="20" sparse="false" start_byte_hex="0x7FB000" start_sector="2043"/>
-	<program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="B.xbl_a_6.bin" label="xbl_a" num_partition_sectors="795" physical_partition_number="1" size_in_KB="3180" sparse="false" start_byte_hex="0x6000" start_sector="6"/>
-	<program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="B.xbl_config_a_902.bin" label="xbl_config_a" num_partition_sectors="25" physical_partition_number="1" size_in_KB="100" sparse="false" start_byte_hex="0x386000" start_sector="902"/>
-</data>

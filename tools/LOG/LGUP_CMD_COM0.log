@@ -1,0 +1,8 @@
+[10: 5:53] CComPort::OpenPort, the port number is invalid
+[10: 5:53] CBasicComControl::Open, can not open the port
+[10: 5:53] CComPort::ClosePort, the port is not open
+[10: 5:53] CBasicComControl::Close, can not close the port
+[10: 5:53] CPort::OpenPort(), Undefined Error. Port number is 0[error code = 4]
+[10: 5:53] Update Fail. 'Unknown' model is detected.[10: 5:53] ModelListManager is initialized
+[10: 5:56] [Port : 0, SWVersion : ] thread will be started
+[10: 8:44] CBasicComControl::IsConnected, the port(COM-1) connection is not detected

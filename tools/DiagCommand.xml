@@ -1,0 +1,2294 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<toperations>
+	<toperation name="DiagNoOperation">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="NoOperationCmd">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE"	value="6"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE"	value="2"/>
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagTestModeSimpleCommand">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="30000" />
+			<cmd_struct name="DiagTestModeSimpleCommand">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD"/>
+					<field name="test_mode" 	type="WORD"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD"/>
+					<field name="ret_stat_code" 	type="BYTE"/>
+					<field name="dummy" 		type="BYTE[64]"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<!-- ================ Pre-paid Phone Setting =================-->
+	<toperation name="DiagPrePaidPhoneCmd">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="PrePaidPhoneCmd">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE"	value="204"/>
+					<field name="SubCmd" 		type="BYTE"/>
+					<field name="is_ok" 		type="BYTE"/>
+					<field name="mark_key" 		type="BYTE"	value="97"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE"	value="204"/>
+					<field name="SubCmd" 		type="BYTE"/>
+					<field name="is_ok" 		type="BYTE"/>
+					<field name="prepay_flag" 	type="BYTE"/>
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>	
+	<!-- ======================= SRD Type ========================-->
+	<toperation name="DiagDLTimeType">
+		<tcall class="comm" method="SetCmdStructData">
+			<packet_struct name="DLTimeType">
+				<field name="Year" 		type="WORD"/>
+				<field name="Month" 		type="WORD"/>
+				<field name="Day" 		type="WORD"/>
+				<field name="Hour" 		type="WORD"/>	
+				<field name="Minute" 		type="WORD"/>	
+				<field name="Second" 		type="WORD"/>
+			</packet_struct>
+		</tcall>	
+	</toperation>
+	<toperation name="DiagDLInfoType">
+		<tcall class="comm" method="SetCmdStructData">
+			<packet_struct name="DLInfoType">
+				<field name="DLL_Ver"		type="BYTE[32]"/>	
+				<field name="FW_Ver" 		type="BYTE[32]"/>
+				<field name="PRL_Ver" 		type="BYTE[32]"/>
+				<field name="Script_Ver" 	type="BYTE[32]"/>
+				<field name="DLTime" 		type="DLTimeType"/>
+				<field name="Reserved1" 	type="BYTE[32]"/>
+				<field name="Reserved2" 	type="BYTE[32]"/>
+				<field name="Reserved3" 	type="BYTE[32]"/>
+			</packet_struct>
+		</tcall>	
+	</toperation>
+	<toperation name="DiagSRDDIDInit">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="SRDDIDInit">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE"	value="249"/>
+					<field name="SubCmd" 		type="BYTE"	value="4"/>
+					<field name="ErrCode" 		type="DWORD"	value="0"/>
+					<field name="PacketVersion" 	type="DWORD"	value="0x1000"/>
+					<field name="Size" 		type="DWORD"	value="0x0e"/>			
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE"	check="249"/>
+					<field name="SubCmd" 		type="BYTE"	check="4"/>
+					<field name="ErrCode" 		type="DWORD"	check="0"/>
+					<field name="PacketVersion" 	type="DWORD"/>
+					<field name="Size" 		type="DWORD"/>		
+					<field name="BackupUsed" 	type="BYTE"/>
+					<field name="BinaryClass" 	type="BYTE"/>
+					<field name="FactoryRest" 	type="BYTE"/>
+					<field name="DLInfo" 		type="DLInfoType"/>
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagSetExtraNVBackupItem">
+		<getenv name="Operation"/>
+		<getenv name="NVEnum"/>
+		<getenv name="Nam"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="3000"/>
+			<cmd_struct name="SetExtraNVBackupItem">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE"	value="249"/>
+					<field name="SubCmd" 		type="BYTE"	value="2"/>
+					<field name="ErrCode" 		type="DWORD"	value="0"/>
+					<field name="PacketVersion" 	type="DWORD"	value="0x1000"/>
+					<field name="Size" 		type="DWORD"	value="0x97"/>	
+					<field name="Operation" 	type="BYTE" 	value="$Operation"/>
+					<field name="NVEnum" 		type="DWORD" 	value="$NVEnum"/>
+					<field name="Nam" 		type="DWORD"	value="$Nam"/>
+					<field name="Data" 		type="BYTE[128]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE"	check="249"/>
+					<field name="SubCmd" 		type="BYTE"	check="2"/>
+					<field name="ErrCode" 		type="DWORD"	check="0"/>
+					<field name="PacketVersion" 	type="DWORD"/>
+					<field name="Size" 		type="DWORD"/>	
+					<field name="Usage" 		type="BYTE"/>
+					<field name="NVEnum" 		type="DWORD"/>
+					<field name="Nam" 		type="DWORD"/>
+					<field name="Data" 		type="BYTE[128]"/>	
+					<field name="Buffer" 		type="BYTE[1928]"/>				
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+
+	<toperation name="DiagWriteExtraPRL">
+		<getenv name="more"/>
+		<getenv name="nam"/>
+		<getenv name="seq_num"/>
+		<getenv name="file_size"/>
+		<getenv name="PRLDataSize"/>
+		<getenv name="data"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="3000"/>
+			<cmd_struct name="WriteExtraPRL">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE"		value="249"/>
+					<field name="SubCmd" 		type="BYTE"		value="3"/>
+					<field name="ErrCode" 		type="DWORD"		value="0"/>
+					<field name="PacketVersion" 	type="DWORD"		value="0x1000"/>
+					<field name="PacketSize" 	type="DWORD"		value="0x81f"/>	
+					<field name="more" 		type="BYTE"		value="$more"/>
+					<field name="nam" 		type="DWORD"		value="$nam"/>
+					<field name="SeqNum" 		type="DWORD"		value="$seq_num"/>
+					<field name="PRLFileSize" 	type="DWORD" 		value="$file_size"/>
+					<field name="PRLDataSize" 	type="DWORD"		value="$PRLDataSize"/>
+					<field name="Data" 		type="BYTE[2048]"	value="$data" 	valuetype="ARR"/>					
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE"	check="249"/>
+					<field name="SubCmd" 		type="BYTE"	check="3"/>
+					<field name="ErrCode" 		type="DWORD"	check="0"/>
+					<field name="PacketVersion" 	type="DWORD"/>
+					<field name="Size" 		type="DWORD"/>		
+					<field name="Operation" 	type="BYTE"/>
+					<field name="NVEnum" 		type="DWORD"/>
+					<field name="Nam" 		type="DWORD"/>
+					<field name="Data" 		type="BYTE[2048]"/>
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	
+	<toperation name="DiagNVSelfRestoreEnvInfo">
+		<getenv name="Usage"/>
+		<getenv name="BinType"/>
+		<getenv name="FR"/>
+		<getenv name="SRDReset"/>
+		<getenv name="DLLVer"/>
+		<getenv name="BinVer"/>
+		<getenv name="PrlVer"/>
+		<getenv name="ScrVer"/>
+		<getenv name="Year"/>
+		<getenv name="Month"/>
+		<getenv name="Day"/>
+		<getenv name="Hour"/>		
+		<getenv name="Second"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="3000"/>
+			<cmd_struct name="NVSelfRestoreEnvInfo">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE"	value="249"/>
+					<field name="SubCmd" 		type="BYTE"	value="0"/>
+					<field name="ErrCode" 		type="DWORD"	value="0"/>
+					<field name="PacketVersion" 	type="DWORD"	value="0x1000"/>
+					<field name="Size" 		type="DWORD"	value="0xfe"/>	
+					<field name="Usage" 		type="BYTE"	value="$Usage"/>
+					<field name="BinType" 		type="BYTE"	value="$BinType"/>
+					<field name="FR" 		type="BYTE"	value="$FR"/>
+					<field name="SRDReset" 		type="BYTE"	value="$SRDReset"/>
+					<field name="DllVer"		type="BYTE[32]"	value="$DLLVer" valuetype="ARR"/>		
+					<field name="BinVer" 		type="BYTE[32]"	value="$BinVer" valuetype="ARR"/>	
+					<field name="PrlVer" 		type="BYTE[32]"	value="$PrlVer" valuetype="ARR"/>	
+					<field name="ScrVer" 		type="BYTE[32]"	value="$ScrVer" valuetype="ARR"/>	
+					<field name="Year" 		type="WORD"	value="$Year"/>
+					<field name="Month" 		type="WORD"	value="$Month"/>
+					<field name="Day" 		type="WORD"	value="$Day"/>
+					<field name="Hour" 		type="WORD"	value="$Hour"/>
+					<field name="Minute" 		type="WORD"	value="$Minute"/>
+					<field name="Second" 		type="WORD"	value="$Second"/>
+					<field name="ComputerName" 	type="BYTE[32]"/>
+					<field name="reserved2" 	type="BYTE[32]"/>
+					<field name="reserved3" 	type="BYTE[32]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE"	check="249"/>
+					<field name="SubCmd" 		type="BYTE"	check="0"/>
+					<field name="ErrCode" 		type="DWORD"	check="0"/>
+					<field name="PacketVersion" 	type="DWORD"/>
+					<field name="Size" 		type="DWORD"/>		
+					<field name="BackupUsed" 	type="BYTE"/>
+					<field name="BinaryClass" 	type="BYTE"/>
+					<field name="FactoryRest" 	type="BYTE"/>
+					<field name="DLInfo" 		type="DLInfoType"/>
+					<field name="Buffer" 		type="BYTE[1826]"/>
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	
+	<!-- ======================= Fota Type =======================-->
+	<toperation name="FOTA_GetStartBlockInfo">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="FOTA_GetStartBlockInfo">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE" value="245" /> 
+					<field name="sub_cmd" 		type="BYTE" value="0" />
+					<field name="start_block" 	type="WORD"/>
+					<field name="delta_offset" 	type="BYTE"/>
+					<field name="limit_block" 	type="WORD"/>
+					<field name="success" 		type="BYTE"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"/> 
+					<field name="sub_cmd" 		type="BYTE"/>
+					<field name="start_block" 	type="WORD"/>
+					<field name="delta_offset" 	type="BYTE"/>
+					<field name="limit_block" 	type="WORD"/>
+					<field name="success" 		type="BYTE"/>	
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>	
+	</toperation>	
+	
+
+	<!-- ======================= SMS Data Type =======================-->
+	<toperation name="DiagMtAddressType">
+		<tcall class="comm" method="SetCmdStructData">
+			<packet_struct name="MtAddressType">
+				<field name="smsAddrss" 		type="BYTE[49]"/>
+				<field name="addrLength" 		type="BYTE"/>
+				<field name="smsStatus" 		type="BYTE"/>
+				<field name="smsSentTime" 	type="DWORD"/>	
+				<field name="smsDelackTime" 	type="DWORD"/>	
+			</packet_struct>
+		</tcall>	
+	</toperation>
+	<toperation name="DiagMtMessageType">
+		<tcall class="comm" method="SetCmdStructData">
+			<packet_struct name="MtMessageType">
+				<field name="pIS637Data" 		type="BYTE[20][256]"/>
+				<field name="uSizeofData" 		type="WORD[20]"/>
+				<field name="isRead" 		type="BYTE"/>
+				<field name="addressInfo0"	type="memtrans_address_type"/>	
+				<field name="addressInfo1"	type="memtrans_address_type"/>	
+				<field name="addressInfo2"	type="memtrans_address_type"/>	
+				<field name="addressInfo3"	type="memtrans_address_type"/>	
+				<field name="addressInfo4"	type="memtrans_address_type"/>	
+				<field name="addressInfo5"	type="memtrans_address_type"/>	
+				<field name="addressInfo6"	type="memtrans_address_type"/>	
+				<field name="addressInfo7"	type="memtrans_address_type"/>	
+				<field name="addressInfo8"	type="memtrans_address_type"/>	
+				<field name="addressInfo9"	type="memtrans_address_type"/>	
+				<field name="sms_save_type" 	type="DWORD"/>	 <!-- enum type-->
+			</packet_struct>
+		</tcall>	
+	</toperation>
+	<toperation name="DiagMtGetSmsCount">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="MtGetSmsCount">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="246"/>
+					<field name="SubCmd" 		type="BYTE"	value="0"/>
+					<field name="Success" 		type="BYTE"	value="0" />	
+					<field name="InboxCount" 		type="WORD"	value="0" />	
+					<field name="OutboxCount"	type="WORD"	value="0" />	
+					<field name="DraftCount"		type="WORD"	value="0" />
+					<field name="SMSData"		type="MtMessageType"	value="0" />					
+				</req_struct>
+				<rsp_struct>
+				<field name="CmdCode" 			type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	/>
+					<field name="Success" 		type="BYTE"	/>	
+					<field name="InboxCount" 		type="WORD"	/>	
+					<field name="OutboxCount"	type="WORD"	/>	
+					<field name="DraftCount"		type="WORD"	/>
+					<field name="SMSData"		type="MtMessageType"	/>				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagMtReadSms">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="MtReadSms">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="246"/>
+					<field name="SubCmd" 		type="BYTE"	value="1"/>
+					<field name="Success" 		type="BYTE"	value="0" />	
+					<field name="InboxCount" 		type="WORD"	value="0" />	
+					<field name="OutboxCount"	type="WORD"	value="0" />	
+					<field name="DraftCount"		type="WORD"	value="0" />
+					<field name="SMSData"		type="MtMessageType"	value="0" />					
+				</req_struct>
+				<rsp_struct>
+				<field name="CmdCode" 			type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	/>
+					<field name="Success" 		type="BYTE"	/>	
+					<field name="InboxCount" 		type="WORD"	/>	
+					<field name="OutboxCount"	type="WORD"	/>	
+					<field name="DraftCount"		type="WORD"	/>
+					<field name="SMSData"		type="MtMessageType"	/>				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+    	<!-- ======================= WMC Data Type =======================-->
+	<toperation name="DiagWmcDateTimeType">
+		<tcall class="comm" method="SetCmdStructData">
+			<packet_struct name="WmcDateTimeType">
+				<field name="Year" 		type="WORD"/>
+				<field name="Month" 		type="WORD"/>
+				<field name="Day" 		type="WORD"/>
+				<field name="Hour" 		type="WORD"/>	
+				<field name="Minute" 		type="WORD"/>	
+				<field name="Second" 		type="WORD"/>
+				<field name="Millisecond"		type="WORD"/>
+				<field name="MinuteFromUTC"	type="DWORD"/>	
+			</packet_struct>
+		</tcall>	
+	</toperation>
+	<toperation name="DiagWmcRecurRuleType">
+		<tcall class="comm" method="SetCmdStructData">
+			<packet_struct name="WmcRecurRuleType">
+				<field name="Freq" 		type="BYTE"/>
+				<field name="Interval" 		type="DWORD"/>
+				<field name="Until" 		type="WmcDateTimeType"/>
+				<field name="Count" 		type="DWORD"/>	
+				<field name="MonthDayMinus" 	type="DWORD"/>	
+				<field name="MonthDayPlus" 	type="DWORD"/>
+				<field name="Month"		type="WORD"/>
+				<field name="Day"		type="BYTE"/>	
+				<field name="DayInterval"		type="BYTE"/>	
+				<field name="UntilLocalTime"	type="BYTE"/>				
+			</packet_struct>
+		</tcall>	
+	</toperation>
+	<toperation name="DiagWmcContactDataType3">
+		<tcall class="comm" method="SetCmdStructData">
+			<packet_struct name="WmcContactDataType3">
+				<field name="name" 		type="BYTE[33]"/>
+				<field name="groupIndex"		type="WORD"/>
+				<field name="email" 		type="BYTE[2][49]"/>	
+				<field name="Ringone" 		type="WORD"/>	
+				<field name="MsgRingtone" 	type="WORD"/>	
+				<field name="PicIndex" 		type="WORD"/>			
+				<field name="Number" 		type="BYTE[5][49]"/>
+				<field name="DefaultNum"		type="BYTE"/>	
+				<field name="SpeedDial" 		type="WORD[5]"/>
+				<field name="ID" 			type="BYTE[64]"/>
+				<field name="Rev" 		type="WmcDateTimeType"/>	
+				<field name="street" 		type="BYTE[33]"/>
+				<field name="city" 		type="BYTE[33]"/>
+				<field name="state" 		type="BYTE[33]"/>
+				<field name="zip" 		type="BYTE[12]"/>
+				<field name="country" 		type="BYTE[33]"/>
+				<field name="im_provider" 		type="WORD"/>
+				<field name="im_screen_name" 	type="BYTE[49]"/>
+				<field name="note" 		type="BYTE[31]"/>				
+			</packet_struct>
+		</tcall>	
+	</toperation>	
+	<toperation name="DiagWmcEventType">
+		<tcall class="comm" method="SetCmdStructData">
+			<packet_struct name="WmcEventType">
+				<field name="description" 		type="BYTE[33]"/>
+				<field name="schCreated"		type="WmcDateTimeType"/>
+				<field name="schModified" 	type="WmcDateTimeType"/>	
+				<field name="Id" 			type="BYTE[64]"/>	
+				<field name="dtStart" 		type="WmcDateTimeType"/>	
+				<field name="dtEnd" 		type="WmcDateTimeType"/>			
+				<field name="rRule" 		type="WmcRecurRuleType"/>
+				<field name="schRing"		type="WORD"/>	
+				<field name="schTriger" 		type="WORD"/>
+				<field name="dtStartLocalTime" 	type="BYTE"/>
+				<field name="dtEndLocalTime" 	type="BYTE"/>		
+			</packet_struct>
+		</tcall>	
+	</toperation>
+	<toperation name="DiagWmcGetEvent3">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="WmcGetEvent3">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	value="50"/>
+					<field name="Index" 		type="DWORD"	/>	
+					<field name="Size" 		type="DWORD"	value="0" />	
+					<field name="Record" 		type="WORD"	value="0" />	
+					<field name="CalendarData" 	type="WmcEventType"	/>
+					<field name="SizeOfData"		type="DWORD"	value="0" />			
+					<field name="Dummy"		type="BYTE[486]"	value="0" />			
+					<field name="EventError"		type="WORD"	value="0" />
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" 	check="241"/>
+					<field name="SubCmd" 		type="BYTE"	/>
+					<field name="Index" 		type="DWORD"	/>	
+					<field name="Size" 		type="DWORD"	/>	
+					<field name="Record" 		type="WORD"	/>	
+					<field name="CalendarData" 	type="WmcEventType"	/>
+					<field name="SizeOfData"		type="DWORD"	/>			
+					<field name="Dummy"		type="BYTE[486]"	/>			
+					<field name="EventError"		type="WORD"	/>				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagWmcSetEvent">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="WmcSetEvent">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	value="51"/>
+					<field name="Index" 		type="DWORD"	/>	
+					<field name="Size" 		type="DWORD"	value="0" />	
+					<field name="Record" 		type="WORD"	value="0" />	
+					<field name="CalendarData" 	type="WmcEventType"	/>
+					<field name="SizeOfData"		type="DWORD"	value="0" />			
+					<field name="Dummy"		type="BYTE[260]"	value="0" />			
+					<field name="EventError"		type="WORD"	value="0" />
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" 	check="241"/>
+					<field name="SubCmd" 		type="BYTE"	/>
+					<field name="Index" 		type="DWORD"	/>	
+					<field name="Size" 		type="DWORD"	/>	
+					<field name="Record" 		type="WORD"	/>	
+					<field name="CalendarData" 	type="WmcEventType"	/>
+					<field name="SizeOfData"		type="DWORD"	/>			
+					<field name="Dummy"		type="BYTE[260]"	/>			
+					<field name="EventError"		type="WORD"	check="0,303"/>				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>	
+	<toperation name="DiagWmcDeleteAllEvent">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="WmcDeleteAllEvent">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	value="53"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" 	check="241"/>
+					<field name="SubCmd" 		type="BYTE"	/>
+					<field name="Index" 		type="DWORD"	/>	
+					<field name="Size" 		type="DWORD"	/>	
+					<field name="Record" 		type="WORD"	/>	
+					<field name="CalendarData" 	type="WmcEventType"	/>
+					<field name="SizeOfData"		type="DWORD"	/>			
+					<field name="Dummy"		type="BYTE[486]"	/>			
+					<field name="EventError"		type="WORD"	check="0,303"/>				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>	
+	<toperation name="DiagWmcGetContact3">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="WmcGetContact3">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	value="41"/>
+					<field name="Index" 		type="DWORD"	/>	
+					<field name="Size" 		type="DWORD"	value="0" />	
+					<field name="ContactData" 	type="WmcContactDataType3"	/>
+					<field name="SizeOfData"		type="DWORD"	value="0" />			
+					<field name="PBCalError"		type="WORD"	value="0" />
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" 	check="241"/>
+					<field name="SubCmd" 		type="BYTE"/>
+					<field name="Index" 		type="DWORD"/>	
+					<field name="Size" 		type="DWORD"/>	
+					<field name="ContactData" 	type="WmcContactDataType3"/>	
+					<field name="SizeOfData"		type="DWORD"/>								
+					<field name="PBCalError"		type="WORD" 	check="0,303"/>
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+		<toperation name="DiagWmcSetContact3">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="WmcSetContact3">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	value="42"/>
+					<field name="Index" 		type="DWORD"	value="0" />	
+					<field name="Size" 		type="DWORD"	value="0" />	
+					<field name="ContactData" 	type="WmcContactDataType3"	value="0" />
+					<field name="SizeOfData"		type="DWORD"	value="0" />			
+					<field name="PBCalError"		type="WORD"	value="0" />
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" 	check="241"/>
+					<field name="SubCmd" 		type="BYTE"/>
+					<field name="Index" 		type="DWORD"/>	
+					<field name="Size" 		type="DWORD"/>	
+					<field name="ContactData" 	type="WmcContactDataType3"/>	
+					<field name="SizeOfData"		type="DWORD"/>								
+					<field name="PBCalError"		type="WORD" 	check="0"/>
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagWmcDeleteAllContact3">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="WmcDeleteAllContact3">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	value="47"/>
+					<field name="Index" 		type="DWORD"	value="0" />	
+					<field name="Size" 		type="DWORD"	value="0" />	
+					<field name="ContactData" 	type="WmcContactDataType3"	value="0" />
+					<field name="SizeOfData"		type="DWORD"	value="0" />			
+					<field name="PBCalError"		type="WORD"	value="0" />
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" 	check="241"/>
+					<field name="SubCmd" 		type="BYTE"/>
+					<field name="Index" 		type="DWORD"/>	
+					<field name="Size" 		type="DWORD"/>	
+					<field name="ContactData" 	type="WmcContactDataType3"/>	
+					<field name="SizeOfData"		type="DWORD"/>								
+					<field name="PBCalError"		type="WORD" 	check="0"/>
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagWmcGetDeviceInfo">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="WmcGetDeviceInfo">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	value="10"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" 	check="241"/>
+					<field name="SubCmd" 		type="BYTE"/>
+					<field name="Index" 		type="DWORD"/>	
+					<field name="Size" 		type="DWORD"/>	
+					<field name="szMDN" 		type="BYTE[22]"/>	
+					<field name="szESN"		type="BYTE[12]"/>								
+					<field name="bActivated"		type="BYTE" />												
+					<field name="szDeviceManufacturer"		type="BYTE[64]" />							
+					<field name="szDeviceModel"		type="BYTE[64]" />							
+					<field name="szDeviceRevision"		type="BYTE[64]" />							
+					<field name="szDeviceHardwareRevision"	type="BYTE[64]" />							
+					<field name="szDeviceBootloaderRevision"	type="BYTE[64]" />							
+					<field name="szDriverRevision"		type="BYTE[64]" />							
+					<field name="szMIN" 		type="BYTE[22]"/>						
+					<field name="HomeSID"		type="DWORD" />							
+					<field name="PRLVersion"		type="DWORD" />							
+					<field name="ERIVersion"		type="DWORD" />						
+					<field name="DeviceLocked"	type="BYTE" />	
+					<field name="RadioOn"		type="BYTE" />
+					<field name="szOEMID"		type="BYTE[64]" />
+					<field name="szMEID"		type="BYTE[16]" />
+					<field name="ErrorStatus"		type="WORD" />
+					<field name="Ver"			type="BYTE[13]" />
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+		<toperation name="DiagWmcGetFieldSize">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="3000" />
+			<cmd_struct name="WmcGetFieldSize">
+				<req_struct>			
+					<field name="CmdCode" 		type="BYTE" 	value="241"/>
+					<field name="SubCmd" 		type="BYTE"	value="40"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" 	check="241"/>
+					<field name="SubCmd" 		type="BYTE"/>
+					<field name="Size" 		type="DWORD"/>						
+					<field name="ContactName"	type="WORD" />	
+					<field name="PhoneNumber"	type="WORD" />	
+					<field name="EmailAddress"	type="WORD" />	
+					<field name="EventName"		type="WORD" />	
+					<field name="GroupName"		type="WORD" />	
+					<field name="RingerName"		type="WORD" />	
+					<field name="PictureName"		type="WORD" />	
+					<field name="PhoneBookRecords"	type="DWORD" />	
+					<field name="CalendarRecords"	type="DWORD" />	
+					<field name="SMSLocations"	type="DWORD" />	
+					<field name="CallEntryLocations"	type="DWORD" />	
+					<field name="Status"		type="WORD" />	
+				</rsp_struct>	
+			</cmd_struct>	
+		</tcall>	
+	</toperation>	
+	
+
+	<toperation name="DiagNVDeactivate">
+		<getenv name="what_to_do"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagNVDeactivate">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE" value="205"/>
+					<field name="what_to_do" 	type="BYTE" value="$what_to_do"/>
+					<field name="what1" 		type="WORD" value="0"/>
+					<field name="what2" 		type="WORD" value="0"/>
+					<field name="what3" 		type="BYTE" value="0"/>
+					<field name="what4" 		type="BYTE" value="0"/>
+					<field name="what5" 		type="BYTE" value="0"/>
+					<field name="ret" 		type="BYTE" value="0"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE" check="205"/>
+					<field name="what_to_do" 		type="BYTE" />
+					<field name="what1" 		type="WORD" />
+					<field name="what2" 		type="WORD" />
+					<field name="what3" 		type="BYTE" />
+					<field name="what4" 		type="BYTE" />
+					<field name="what5" 		type="BYTE" />
+					<field name="ret" 		type="BYTE" />
+					<field name="buffer" 		type="BYTE[200]" />
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagKey">
+		<getenv name="key_code"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagKey">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="32"/>
+					<field name="hold" 		type="BYTE" value="0"/>
+					<field name="key" 		type="BYTE" value="$key_code"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="32"/>
+					<field name="hold" 		type="BYTE"/>
+					<field name="key" 		type="BYTE"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagEFSRParam">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagEFSRParam">
+				<req_struct>
+					<field name="cmd" 	type="BYTE" value="89" /> 
+					<field name="sub_stat" 	type="BYTE" value="14" />
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 	type="BYTE"   check="89" />
+					<field name="sub_stat" 	type="BYTE"/>	
+					<field name="fs_status" 	type="BYTE"/>	
+					<field name="klt_rev" 	type="WORD" valuetype="ARR" />
+					<field name="fs_id" 	type="WORD" valuetype="ARR"  />		
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagNVPeek">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagNVPeek">
+				<req_struct>
+					<field name="cmd" 	type="BYTE" value="17"/> 
+					<field name="address" 	type="WORD" value="23"/>
+					<field name="length" 	type="BYTE" value="6"/> 
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 	type="BYTE"   check="17"/>
+					<field name="address" 	type="WORD"/>	
+					<field name="length" 	type="BYTE"/>	
+					<field name="mem" 	type="BYTE[6]" valuetype="ARR"/>	
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagFactoryReset">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="30000" />
+			<cmd_struct name="DiagFactoryReset">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD" value="50"/>
+					<field name="test_mode_1" 		type="WORD" value="0"/>
+					<field name="test_mode_2" 		type="WORD" value="0"/>
+					<field name="test_mode_3" 		type="WORD" value="0"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD"/>
+					<field name="ret_stat_code" 	type="BYTE"/>
+					<field name="dummy" 		type="BYTE[64]"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagFactoryResetCompleteCheck">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="10000" />
+			<cmd_struct name="DiagFactoryResetCompleteCheck">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD" value="50"/>
+					<field name="test_mode_1" 	type="WORD" value="1"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD"/>
+					<field name="ret_stat_code" 	type="BYTE"/>
+					<field name="dummy" 		type="BYTE[64]"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>	
+	<toperation name="DiagFactoryResetEx">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="10000" />
+			<cmd_struct name="DiagFactoryResetEx">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD" value="50"/>
+					<field name="sub_cmd2" 		type="BYTE" value="$sub_cmd2"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD"/>
+					<field name="ret_stat_code" 	type="BYTE"/>
+					<field name="buffer" 		type="BYTE[500]"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagOfflineD">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagOfflineD">
+				<req_struct>
+					<field name="Cmd" 	type="BYTE" value="41"/> 
+					<field name="Mode" 	type="WORD" value="1"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 	type="BYTE"   check="41"/>
+					<field name="Mode" 	type="WORD"/>	
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagVerNO">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagVerNO">
+				<req_struct>
+					<field name="cmd_code" 	type="BYTE" value="0"/> 
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 	type="BYTE"   check="0"/>
+					<field name="comp_date" 	type="BYTE[11]"/>
+					<field name="comp_time" 	type="BYTE[8]"/>
+					<field name="rel_date" 		type="BYTE[11]"/>
+					<field name="rel_time" 		type="BYTE[8]"/>
+					<field name="ver_dir" 		type="BYTE[8]"/>
+					<field name="scm" 		type="BYTE"/>
+					<field name="mob_cai_rev" 	type="BYTE"/>
+					<field name="mob_model" 	type="BYTE"/>
+					<field name="mob_firm_rev" 	type="WORD"/>
+					<field name="slot_cycle_index" 	type="BYTE"/>
+					<field name="voc_maj" 		type="BYTE"/>
+					<field name="voc_min" 		type="BYTE"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DloadVerNO">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DloadVerNO">
+				<req_struct>
+					<field name="cmd_code" 	type="BYTE" value="12"/> 
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 	type="BYTE"   check="13"/>
+					<field name="str_len" 	type="BYTE"/>
+					<field name="dummy" 	type="BYTE[67]"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagReset">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagReset">
+				<req_struct>
+					<field name="Cmd" 	type="BYTE" value="41"/> 
+					<field name="Mode" 	type="WORD" value="2"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"   check="41"/>
+					<field name="Mode" 		type="WORD"/>	
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="EnableReadWriteAkey">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EnableReadWriteAkey">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="251"/> 
+					<field name="sub_cmd" 		type="WORD" value="6"/>
+					<field name="reconditional" 	type="BYTE" value="2"/> 
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE"   check="251"/>
+					<field name="sub_cmd" 		type="WORD"/>	
+					<field name="reconditional" 	type="BYTE"/>	
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagSPCUnlock">
+		<getenv name="spc"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagSPCUnlock">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="65"/> 
+					<field name="sec_code" 		type="BYTE[6]" value="$spc" valuetype="ARR"/>				
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="65"/>
+					<field name="sec_code_ok" 	type="BYTE" check="1"/>	
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>	
+	</toperation>
+	<toperation name="DiagDload">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagDload">
+				<req_struct>
+					<field name="cmd" 	type="BYTE"   value="0x3A"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 	type="BYTE"   check="0x3A"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagTestModeTestScriptMode">
+		<getenv name="sub_cmd_code2" />
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="10000" />
+			<cmd_struct name="DiagTestModeTestScriptMode">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD" value="48"/>
+					<field name="sub_cmd_code2" 	type="WORD" value="$sub_cmd_code2"/>
+					<field name="union_dummy" 	type="BYTE[29]" value="0"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD" check="48"/>
+					<field name="ret_stat_code" 	type="BYTE"/>
+					<field name="factory_init" 	type="BYTE"/>
+					<field name="union_dummy" 	type="BYTE[63]" />
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagTestModeManualTestEx">
+		<getenv name="sub_cmd_code2" />
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="10000" />
+			<cmd_struct name="DiagTestModeManualTestEx">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD" value="36"/>
+					<field name="sub_cmd_code2" 	type="WORD" value="$sub_cmd_code2"/>
+					<field name="union_dummy" 	type="BYTE[29]" value="0"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD" check="36"/>
+					<field name="ret_stat_code" 	type="BYTE"/>
+					<field name="union_dummy" 	type="BYTE[64]" />
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagTestModeCheckDB">
+		<getenv name="cmd_type" />
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="10000"/>
+			<cmd_struct name="DiagTestModeEx">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD" value="58"/>
+					<field name="cmd_type" 	type="BYTE" value="$cmd_type"/> <!--0 : DB close, 1: DB status-->
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD" check="58"/>
+					<field name="ret_stat_code" 	type="BYTE" valuetype="ARR"/> <!-- 0: TEST_OK, 1: TEST_FAIL, 2: TEST_NOT_SUPPORT-->
+					<field name="dummy"		type="BYTE[67]"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagTestMode_HFAOff">
+		<getenv name="cmd_type" />
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="10000"/>
+			<cmd_struct name="DiagTestMode_HFAOff">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD" value="52"/>
+					<field name="sub_cmd_code2" 	type="BYTE" value="$sub_cmd_code2"/> 
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD" check="52"/>
+					<field name="ret_stat_code" 	type="BYTE"/>
+					<field name="buffer" 		type="BYTE[500]"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="DiagTestModeVersion">
+		<getenv name="cmd_type" />
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="3000"/>
+			<cmd_struct name="DiagTestModeVersion">
+				<req_struct>
+					<field name="cmd" 		type="BYTE" value="250"/>
+					<field name="sub_cmd" 		type="WORD" value="0"/>
+					<field name="cmd_type" 	type="BYTE" value="$cmd_type"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 		type="BYTE" check="250"/>
+					<field name="sub_cmd" 		type="WORD" check="0"/>
+					<field name="ret_stat_code" 	type="BYTE" valuetype="ARR"/> <!-- 0: TEST_OK, 1: TEST_FAIL, 2: TEST_NOT_SUPPORT-->
+					<field name="dummy"		type="BYTE[67]"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+
+
+	
+<!-- ***********************************************************************************************
+     ********************************************* EFS *********************************************
+     *********************************************************************************************** -->  
+	<toperation name="EFS_PrepFactImageDump">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="PrepFactImageDump">
+				<req_struct>
+					<field name="CmdCode" 		type="BYTE" value = "75"/>
+					<field name="SubSysID" 		type="BYTE" />
+					<field name="SybSysCmdCode" 	type="WORD" value = "25"/>	
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" check = "75"/>
+					<field name="SubSysID" 		type="BYTE" />
+					<field name="SybSysCmdCode" 	type="WORD" check = "25"/>
+					<field name="Error"	 	type="DWORD" check = "0"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>		
+	<toperation name="EFS_StartFactImageDump">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="StartFactImageDump">
+				<req_struct>
+					<field name="CmdCode" 		type="BYTE" value = "75"/>
+					<field name="SubSysID" 		type="BYTE" />
+					<field name="SybSysCmdCode" 	type="WORD" value = "22"/>	
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" check = "75"/>
+					<field name="SubSysID" 		type="BYTE" />
+					<field name="SybSysCmdCode" 	type="WORD" check = "22"/>
+					<field name="Error"	 	type="DWORD" check = "0"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>	
+	<toperation name="EFS_ReadFactImage">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="ReadFactImage">
+				<req_struct>
+					<field name="CmdCode" 		type="BYTE" value = "75"/>
+					<field name="SubSysID" 		type="BYTE" value = "-"/>
+					<field name="SybSysCmdCode" 	type="WORD" value = "23"/>
+					<field name="StreamState"	 	type="BYTE" value = "-"/>
+					<field name="InfoClusterSent" 	type="BYTE" value = "-"/>
+					<field name="ClusterMapSeqNO" 	type="WORD" value = "-"/>
+					<field name="ClusterDataSeqNO" 	type="DWORD" value = "-"/>	
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" check = "75"/>
+					<field name="SubSysID" 		type="BYTE" />
+					<field name="SybSysCmdCode" 	type="WORD" check = "23"/>
+					<field name="Error"	 	type="DWORD" check = "0"/>
+					<field name="StreamState" 		type="BYTE" />
+					<field name="InfoClusterSent" 	type="BYTE" />
+					<field name="ClusterMapSeqNO" 	type="WORD" />
+					<field name="ClusterDataSeqNO" 	type="DWORD" />	
+					<field name="ReadImageData" 	type="BYTE[512]" />
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>		
+	<toperation name="EFS_EndFactImageDump">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EndFactImageDump">
+				<req_struct>
+					<field name="CmdCode" 		type="BYTE" value = "75"/>
+					<field name="SubSysID" 		type="BYTE" />
+					<field name="SybSysCmdCode" 	type="WORD" value = "24"/>	
+				</req_struct>
+				<rsp_struct>
+					<field name="CmdCode" 		type="BYTE" check = "75"/>
+					<field name="SubSysID" 		type="BYTE" />
+					<field name="SybSysCmdCode" 	type="WORD" check = "24"/>
+					<field name="Error"	 	type="DWORD" check = "0"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	<toperation name="EFS2_Close">
+		<getenv name="fd"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_Close">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="3"/>
+					<field name="fd" 		type="DWORD"	  value="$fd" 	  valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="3"/>
+					<field name="error" 		type="DWORD"	  check="0" 	error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_Close">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_Close">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="3"/>
+					<field name="fd" 		type="DWORD"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="3"/>
+					<field name="error" 		type="DWORD"	  check="0" 	error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>		
+	
+	<toperation name="EFS2_CloseDir">
+		<getenv name="fd"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_CloseDir">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="13"/>
+					<field name="fd" 		type="DWORD"	  value="$fd" 	  valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="13"/>
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_CloseDir">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_CloseDir">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="13"/>
+					<field name="fd" 		type="DWORD"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="13"/>
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	
+	<toperation name="EFS2_GetCRC">
+		<getenv name="file_path"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_GetCRC">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="129"/>
+					<field name="path" 		type="BYTE[128]"  value="$file_path" valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="129"/>
+					<field name="crc" 		type="DWORD"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_GetCRC">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_GetCRC">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="129"/>
+					<field name="path" 		type="BYTE[128]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="129"/>
+					<field name="crc" 		type="DWORD"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>		
+	
+	<toperation name="EFS2_MkDir">
+		<getenv name="dir_path"/>
+		<getenv name="mode"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_MkDir">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="9"/>
+					<field name="mode" 		type="WORD" 	  value="$mode"/>
+					<field name="path" 		type="BYTE[128]"  value="$dir_path" valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="9"/>
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+
+	<toperation name="SetCmdForEFS2_MkDir">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_MkDir">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="9"/>
+					<field name="mode" 		type="WORD"/>
+					<field name="path" 		type="BYTE[128]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="9"/>
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	
+	<toperation name="EFS2_Open">
+		<getenv name="file_path"/>
+		<getenv name="mode"/>
+		<getenv name="oflag"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_Open">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="2"/>
+					<field name="oflag" 		type="DWORD"	  value="$oflag"/> <!--  OPEN_RDONLY = 0, OPEN_RDWR = 2, OPEN_CREAT = 64, OPEN_TCREAT = 65,
+							       							 OPEN_TRUNC = 512, OPEN_APPEND = 1024 -->
+					<field name="mode" 		type="DWORD"	  value="$mode"/>
+					<field name="path" 		type="BYTE[128]"  value="$file_path" valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="2"/>
+					<field name="fd" 		type="DWORD" 	  valuetype="ARR"/>
+					<field name="error" 		type="DWORD"	  check="0"	Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_Open">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_Open">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="2"/>
+					<field name="oflag" 		type="DWORD"/> 
+					<field name="mode" 		type="DWORD"/>
+					<field name="path" 		type="BYTE[128]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="2"/>
+					<field name="fd" 		type="DWORD"/>
+					<field name="error" 		type="DWORD"	  check="0"	Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>	
+	
+	<toperation name="EFS2_OpenDir">
+		<getenv name="dir_path"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_OpenDir">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="11"/>
+					<field name="path" 		type="BYTE[128]"  value="$dir_path" valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="11"/>
+					<field name="fd" 		type="DWORD" 	  valuetype="ARR"/>
+					<field name="error" 		type="DWORD"	  check="0"	Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+
+	<toperation name="SetCmdForEFS2_OpenDir">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_OpenDir">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="11"/>
+					<field name="path" 		type="BYTE[128]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="11"/>
+					<field name="fd" 		type="DWORD"/>
+					<field name="error" 		type="DWORD"	  check="0"	Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	
+	<toperation name="EFS2_Read">
+		<getenv name="fd"/>
+		<getenv name="offset"/>
+		<getenv name="efs_read_buf_size"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_Read">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="4"/>
+					<field name="fd" 		type="DWORD"	  value="$fd" 	  valuetype="ARR"/>
+					<field name="nbyte" 		type="DWORD" 	  value="$efs_read_buf_size"/>
+					<field name="offset" 		type="DWORD"	  value="$offset"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="4"/>
+					<field name="fd" 		type="DWORD" 	  valuetype="ARR"/>
+					<field name="offset" 		type="DWORD"/>
+					<field name="bytes_read" 	type="DWORD"/>
+					<field name="error" 		type="DWORD"	  check="0"	Error="EFS_ERROR"/>
+					<field name="data" 		type="$efs_read_buf_size"	valuetype="ARR"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_Read">
+		<getenv name="efs_read_buf_size"/>
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_Read">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="4"/>
+					<field name="fd" 		type="DWORD"/>
+					<field name="nbyte" 		type="DWORD"/>
+					<field name="offset" 		type="DWORD"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="4"/>
+					<field name="fd" 		type="DWORD"/>
+					<field name="offset" 		type="DWORD"/>
+					<field name="bytes_read" 	type="DWORD"/>
+					<field name="error" 		type="DWORD"	  check="0"	Error="EFS_ERROR"/>
+					<field name="data" 		type="$efs_read_buf_size"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>			
+	
+	<toperation name="EFS2_ReadDir">
+		<getenv name="dirp"/>
+		<getenv name="seqno"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_ReadDir">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="12"/>
+					<field name="dirp" 		type="DWORD" 	  value="$dirp"/>
+					<field name="seqno" 		type="DWORD"  	  value="$seqno"/>		
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="12"/>
+					<field name="dirp" 		type="DWORD"/>
+					<field name="seqno" 		type="DWORD"/>
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>
+					<field name="entry_Type" 	type="DWORD"/>
+					<field name="mode" 		type="DWORD"/>
+					<field name="size" 		type="DWORD"/>
+					<field name="atime" 		type="DWORD"/>
+					<field name="mtime" 		type="DWORD"/>
+					<field name="ctime" 		type="DWORD"/>
+					<field name="szEntry_Name" 	type="BYTE[128]" valuetype="ARR"/>						
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_ReadDir">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_ReadDir">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="12"/>
+					<field name="dirp" 		type="DWORD"/>
+					<field name="seqno" 		type="DWORD"/>		
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="12"/>
+					<field name="dirp" 		type="DWORD"/>
+					<field name="seqno" 		type="DWORD"/>
+					<field name="error" 		type="DWORD"/>
+					<field name="entry_Type" 	type="DWORD"/>
+					<field name="mode" 		type="DWORD"/>
+					<field name="size" 		type="DWORD"/>
+					<field name="atime" 		type="DWORD"/>
+					<field name="mtime" 		type="DWORD"/>
+					<field name="ctime" 		type="DWORD"/>
+					<field name="szEntry_Name" 	type="BYTE[128]"/>						
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	
+	<toperation name="EFS2_RmDir">
+		<getenv name="dir_path"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_RmDir">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="10"/>
+					<field name="path" 		type="BYTE[128]"  value="$dir_path" valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="10"/>		
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_RmDir">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_RmDir">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="10"/>
+					<field name="path" 		type="BYTE[128]" />
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="10"/>		
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+
+	<toperation name="EFS2_Stat">
+		<getenv name="file_path"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_Stat">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="15"/>
+					<field name="path" 		type="BYTE[128]"  value="$file_path" valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="15"/>		
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>		
+					<field name="mode" 		type="DWORD"/>
+					<field name="size" 		type="DWORD"/>
+					<field name="nlink" 		type="DWORD"/>
+					<field name="atime" 		type="DWORD"/>
+					<field name="mtime" 		type="DWORD"/>
+					<field name="ctime" 		type="DWORD"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	<toperation name="SetCmdForEFS2_Stat">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_Stat">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="15"/>
+					<field name="path" 		type="BYTE[128]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="15"/>		
+					<field name="error" 		type="DWORD"/>		
+					<field name="mode" 		type="DWORD"/>
+					<field name="size" 		type="DWORD"/>
+					<field name="nlink" 		type="DWORD"/>
+					<field name="atime" 		type="DWORD"/>
+					<field name="mtime" 		type="DWORD"/>
+					<field name="ctime" 		type="DWORD"/>
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>		  
+	
+	<toperation name="EFS2_Unlink">
+		<getenv name="file_path"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_Unlink">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="8"/>
+					<field name="path" 		type="BYTE[128]"  value="$file_path" valuetype="ARR"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="8"/>		
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>		
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>	
+
+	<toperation name="SetCmdForEFS2_Unlink">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_Unlink">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="8"/>
+					<field name="path" 		type="BYTE[128]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="8"/>		
+					<field name="error" 		type="DWORD"	  check="0"		Error="EFS_ERROR"/>		
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="EFS2_Write">
+		<getenv name="fd"/>
+		<getenv name="offset"/>
+		<getenv name="data"/>
+		<getenv name="efs_write_buf_size"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_Write">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="5"/>		
+					<field name="fd" 		type="DWORD"	  value="$fd" 	  valuetype="ARR"/>
+					<field name="offset" 		type="DWORD" 	  value="$offset"/>				
+					<field name="data" 		type="$efs_write_buf_size" value="$data" valuetype="ARR"/>				
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="5"/>		
+					<field name="fd" 		type="DWORD" 	  valuetype="ARR"/>
+					<field name="offset" 		type="DWORD"/>				
+					<field name="bytes_written" 	type="DWORD"/>
+					<field name="error" 		type="DWORD"	    check="0"		Error="EFS_ERROR"/>				
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_Write">
+		<getenv name="efs_write_buf_size"/>
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_Write">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="75"/>
+					<field name="subsys_id" 	type="BYTE"       value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       value="5"/>		
+					<field name="fd" 		type="DWORD"/>
+					<field name="offset" 		type="DWORD"/>				
+					<field name="data" 		type="$efs_write_buf_size"/>				
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="5"/>		
+					<field name="fd" 		type="DWORD"/>
+					<field name="offset" 		type="DWORD"/>				
+					<field name="bytes_written" 	type="DWORD"/>
+					<field name="error" 		type="DWORD"	    check="0"		Error="EFS_ERROR"/>				
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>	 
+	
+	<toperation name="EFS2_Hello">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS2_Hello">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"     value="75"/>
+					<field name="subsys_id" 	type="BYTE"     value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"     value="0"/>		
+					<field name="targ_pkt_window" 	type="DWORD"	value="0"/>				
+					<field name="targ_byte_window" 	type="DWORD" 	value="0"/>				
+					<field name="host_pkt_window" 	type="DWORD" 	value="0"/>				
+					<field name="host_byte_window" 	type="DWORD" 	value="0"/>				
+					<field name="iter_pkt_window" 	type="DWORD" 	value="0"/>				
+					<field name="iter_byte_window" 	type="DWORD" 	value="0"/>				
+					<field name="version" 		type="DWORD" 	value="0"/>				
+					<field name="min_version" 	type="DWORD" 	value="0"/>				
+					<field name="max_version" 	type="DWORD" 	value="0"/>				
+					<field name="feature_bits" 	type="DWORD" 	value="0"/>								
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="0"/>		
+					<field name="targ_pkt_window" 	type="DWORD"/>				
+					<field name="targ_byte_window" 	type="DWORD"/>				
+					<field name="host_pkt_window" 	type="DWORD"/>				
+					<field name="host_byte_window" 	type="DWORD"/>				
+					<field name="iter_pkt_window" 	type="DWORD"/>				
+					<field name="iter_byte_window" 	type="DWORD"/>				
+					<field name="version" 		type="DWORD"/>				
+					<field name="min_version" 	type="DWORD"/>				
+					<field name="max_version" 	type="DWORD"/>				
+					<field name="feature_bits" 	type="DWORD"/>				
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS2_Hello">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS2_Hello">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"     value="75"/>
+					<field name="subsys_id" 	type="BYTE"     value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"     value="0"/>		
+					<field name="targ_pkt_window" 	type="DWORD"	value="0"/>				
+					<field name="targ_byte_window" 	type="DWORD" 	value="0"/>				
+					<field name="host_pkt_window" 	type="DWORD" 	value="0"/>				
+					<field name="host_byte_window" 	type="DWORD" 	value="0"/>				
+					<field name="iter_pkt_window" 	type="DWORD" 	value="0"/>				
+					<field name="iter_byte_window" 	type="DWORD" 	value="0"/>				
+					<field name="version" 		type="DWORD" 	value="0"/>				
+					<field name="min_version" 	type="DWORD" 	value="0"/>				
+					<field name="max_version" 	type="DWORD" 	value="0"/>				
+					<field name="feature_bits" 	type="DWORD" 	value="0"/>								
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="75"/>
+					<field name="subsys_id" 	type="BYTE"       check="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"       check="0"/>		
+					<field name="targ_pkt_window" 	type="DWORD"/>				
+					<field name="targ_byte_window" 	type="DWORD"/>				
+					<field name="host_pkt_window" 	type="DWORD"/>				
+					<field name="host_byte_window" 	type="DWORD"/>				
+					<field name="iter_pkt_window" 	type="DWORD"/>				
+					<field name="iter_byte_window" 	type="DWORD"/>				
+					<field name="version" 		type="DWORD"/>				
+					<field name="min_version" 	type="DWORD"/>				
+					<field name="max_version" 	type="DWORD"/>				
+					<field name="feature_bits" 	type="DWORD"/>				
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="EFS_RestrictionFree">
+		<getenv name="req_Type"/>
+		<getenv name="randomkey_shakey"/>
+		<getenv name="time_stamp_disable"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="EFS_RestrictionFree">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"	value="254"/>
+					<field name="req_Type" 		type="BYTE"	value="$req_Type"/>
+					<field name="randomkey_shakey" 	type="DWORD"	value="$randomkey_shakey"/>		
+					<field name="is_ok" 		type="BYTE" 	value="0"/>				
+					<field name="time_stamp_disable" type="BYTE"	value="$time_stamp_disable"/>										
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="254"/>
+					<field name="req_Type" 		type="BYTE"/>
+					<field name="randomkey_shakey" 	type="DWORD"/>		
+					<field name="is_ok" 		type="BYTE"/>				
+					<field name="time_stamp_disable" type="BYTE"/>			
+					<field name="randomkey_shakeyArr" type="BYTE[16]"/>			
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+
+	<toperation name="SetCmdForEFS_RestrictionFree">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS_RestrictionFree">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"	value="254"/>
+					<field name="req_Type" 		type="BYTE"/>
+					<field name="randomkey_shakey" 	type="DWORD"/>		
+					<field name="is_ok" 		type="BYTE" 	value="0"/>				
+					<field name="time_stamp_disable" type="BYTE"/>										
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="254"/>
+					<field name="req_Type" 		type="BYTE"/>
+					<field name="randomkey_shakey" 	type="DWORD"/>		
+					<field name="is_ok" 		type="BYTE"/>				
+					<field name="time_stamp_disable" type="BYTE"/>			
+					<field name="randomkey_shakeyArr" type="BYTE[16]"/>			
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	
+	<toperation name="SetCmdForEFS_RestrictionFree2">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="EFS_RestrictionFree2">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"	value="254"/>
+					<field name="req_Type" 		type="BYTE"/>
+					<field name="randomkey_shakey" 	type="DWORD"/>		
+					<field name="is_ok" 		type="BYTE" 	value="0"/>				
+					<field name="time_stamp_disable" type="BYTE"/>	
+					<field name="randomkey_shakeyArr" type="BYTE[16]"/>									
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"     check="254"/>
+					<field name="req_Type" 		type="BYTE"/>
+					<field name="randomkey_shakey" 	type="DWORD"/>		
+					<field name="is_ok" 		type="BYTE"	check="1"/>				
+					<field name="time_stamp_disable" type="BYTE"/>			
+					<field name="randomkey_shakeyArr" type="BYTE[16]"/>			
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>
+	<toperation name="PRL_Write">
+		<getenv name="nam"/>
+		<getenv name="seq_num"/>
+		<getenv name="more"/>
+		<getenv name="num_bits"/>
+		<getenv name="prl_write_buf_size"/>
+		<getenv name="data"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="PRL_Write">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="72"/>
+					<field name="seq_num" 		type="BYTE"       value="$seq_num"/>
+					<field name="more" 		type="BYTE"       value="$more"/>		
+					<field name="nam" 		type="BYTE"	  value="$nam"/>
+					<field name="num_bits" 		type="WORD" 	  value="$num_bits"/>				
+					<field name="data" 		type="BYTE[120]" value="$data" valuetype="ARR"/>				
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"       check="72"/>
+					<field name="rl_status" 	type="BYTE"/>
+					<field name="nv_stat" 		type="WORD"/>							
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>		
+	<toperation name="PRL_Read">
+		<getenv name="nam"/>
+		<getenv name="seq_num"/>
+		<getenv name="prl_read_buf_size"/>
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="PRL_Read">	
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"       value="73"/>
+					<field name="seq_num" 		type="BYTE"       value="$seq_num"/>
+					<field name="nam" 		type="BYTE"       value="$nam"/>		
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"	check="73"/>
+					<field name="rl_status" 	type="BYTE"/>
+					<field name="nv_stat" 		type="WORD"	check="0,5"/>	
+					<field name="seq_num" 		type="BYTE"/>
+					<field name="more" 		type="BYTE"/>
+					<field name="num_bits" 		type="WORD"/>
+					<field name="data" 		type="$prl_read_buf_size"	valuetype="ARR"/>							
+				</rsp_struct>
+			</cmd_struct>	
+		</tcall>		
+	</toperation>		
+			
+
+<!-- ***********************************************************************************************
+     ********************************************  NV  *********************************************
+     *********************************************************************************************** -->   
+	<toperation name="NV_ReadNV">
+		<getenv name="enum"/>
+		<getenv name="nam"/>
+		<tcall class="comm" method="SendRecvPacket"> 
+			<cmd_struct name="nv_read">
+				<req_struct>
+					<field name="cmd" 	type="BYTE" value="38"/> 
+					<field name="enum" 	type="WORD" value="$enum"/>
+					<field name="nam" 	type="BYTE" value="$nam"/>
+					<field name="item_data" 	type="BYTE[127]" valuetype="ARR"/>
+					<field name="state" 	type="WORD" value="0"/>		
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 	type="BYTE" 	check="38"/>
+					<field name="enum" 	type="WORD"/>
+					<field name="item_data" 	type="BYTE[128]" valuetype="ARR"/>
+					<field name="state" 	type="WORD" 	check ="0,5"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	<toperation name="NV_WriteNV">
+		<getenv name="enum"/>
+		<getenv name="item_data"/>
+		<tcall class="comm" method="SendRecvPacket"> 
+			<cmd_struct name="nv_write">
+				<req_struct>
+					<field name="cmd" 	type="BYTE" value="39"/> 
+					<field name="enum" 	type="WORD" value="$enum"/>
+					<field name="item_data" 	type="BYTE[128]" value="$item_data" valuetype="ARR"/>
+					<field name="state" 	type="WORD" value="0"/>	
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 	type="BYTE" 	check="39"/>
+					<field name="enum" 	type="WORD"/>
+					<field name="item_data" 	type="BYTE[128]" valuetype="ARR"/>
+					<field name="state" 	type="WORD" 	check ="0"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	
+<!-- ***********************************************************************************************
+     ******************************************** TOT *********************************************
+     *********************************************************************************************** -->   
+	<toperation name="Flash_GetBIBInfoFromPhone">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="3000" />			
+			<cmd_struct name="GetBIBInfoFromPhone">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"   value="75"/>
+					<field name="subsys_id" 		type="BYTE"   value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"   value="130"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"   check="75"/>
+					<field name="subsys_id" 		type="BYTE"/>
+					<field name="subsys_cmd_code"	type="WORD"/>
+					<field name="code_end"		type="WORD"/>
+					<field name="efs_start"		type="WORD"/>
+					<field name="bib_crc" 		type="DWORD"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>		
+	</toperation>		
+	<toperation name="Flash_NandDevInfo_Alternate">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="3000" />			
+			<param name="fault_tolerance" value="TRUE" />			
+			<cmd_struct name="NandDevInfo_Alternate">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"   value="75"/>
+					<field name="subsys_id" 	type="BYTE"   value="62"/>
+					<field name="subsys_cmd_code" 	type="WORD"   value="21"/>
+					<field name="pkt" 		type="BYTE[1024]"   value="0"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"  check="75"/>
+					<field name="dummy" 		type="BYTE[7]" />
+					<field name="total_no_of_blocks"	type="DWORD"/>
+					<field name="no_of_pages_per_block"	type="DWORD"/>
+					<field name="page_size"		type="DWORD"/>
+					<field name="total_page_size" 	type="DWORD"/>
+					<field name="maker_id" 		type="DWORD"/>
+					<field name="device_id" 		type="DWORD"/>
+					<field name="device_type" 		type="BYTE"/>
+					<field name="device_name" 	type="BYTE[128]"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>		
+	</toperation>		
+	<toperation name="Flash_NandDevInfo">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="3000" />			
+			<cmd_struct name="NandDevInfo">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"   value="75"/>
+					<field name="subsys_id" 		type="BYTE"   value="19"/>
+					<field name="subsys_cmd_code" 	type="WORD"   value="21"/>
+					<field name="pkt" 		type="BYTE[1024]"   value="0"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"  check="75"/>
+					<field name="dummy" 		type="BYTE[7]" />
+					<field name="total_no_of_blocks"	type="DWORD"/>
+					<field name="no_of_pages_per_block"	type="DWORD"/>
+					<field name="page_size"		type="DWORD"/>
+					<field name="total_page_size" 	type="DWORD"/>
+					<field name="maker_id" 		type="DWORD"/>
+					<field name="device_id" 		type="DWORD"/>
+					<field name="device_type" 		type="BYTE"/>
+					<field name="device_name" 	type="BYTE[128]"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>		
+	</toperation>		
+<!-- ***********************************************************************************************
+     ****************************************Boot Status Check *************************************
+     *********************************************************************************************** -->   
+	<toperation name="BootCompleteStatus">
+		<getenv name="enum"/>
+		<getenv name="item_data"/>
+		<tcall class="comm" method="SendRecvPacket"> 
+			<param name="waiting_time" value="5000"/>
+			<cmd_struct name="BootCompleteStatus">
+				<req_struct>
+					<field name="cmd" 	type="BYTE" value="250"/> 
+					<field name="sub_cmd" 	type="WORD" value="58"/>
+					<field name="sub_cmd2" 	type="WORD" value="0"/>	
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd" 	type="BYTE" 	check="250"/>
+					<field name="sub_cmd" 	type="WORD"/>
+					<field name="status" 	type="BYTE"/>
+					<field name="result" 	type="BYTE"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>     
+<!-- ***********************************************************************************************
+     ****************************************dload command *************************************
+     *********************************************************************************************** --> 
+	<toperation name="DloadReset">
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DloadReset">
+				<req_struct>
+					<field name="Cmd"	type="BYTE"	value="10"/>										
+				</req_struct>
+				<rsp_struct>
+					<field name="State"	type="BYTE"	check="2"/>			
+				</rsp_struct>	
+			</cmd_struct>
+		</tcall>
+	</toperation>		
+	<toperation name="DownloadInitialize">	
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DownloadInitialize">
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"   value="33"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"   check="33"/>
+					<field name="ErrorCode" 	type="BYTE"/>
+					<field name="Addr" 		type="BYTE[4]"/>
+					<field name="Offset" 		type="BYTE[2]"/>
+				</rsp_struct>	
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	<toperation name="DownloadEraseCode">	
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DownloadEraseCode">
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"  value="34"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"  check="34"/>
+					<field name="ErrorCode" 	type="BYTE"/>
+					<field name="Addr" 		type="BYTE[4]"/>
+					<field name="Offset" 		type="BYTE[4]"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	<toperation name="DownloadEraseEFS">	
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DownloadEraseEFS">
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"  value="37"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"  check="37"/>
+					<field name="ErrorCode" 	type="BYTE"/>
+					<field name="Addr" 		type="BYTE[4]"/>
+					<field name="Offset" 		type="BYTE[4]"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>	
+	</toperation>
+	<toperation name="SetCmdForDownloadBurning">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="DownloadBurning">
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"  		value="35"/>
+					<field name="ErrorCode" 	type="BYTE"  		value="0"/>
+					<field name="Addr" 		type="BYTE[4]"/>
+					<field name="Offset" 		type="WORD"  		value="16384"/>
+					<field name="Data" 		type="BYTE[16384]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"   check="35"/>
+					<field name="ErrorCode" 	type="BYTE"   check="0"/>
+					<field name="Addr" 		type="BYTE[4]"/>
+					<field name="Offset" 		type="BYTE[2]"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>		
+	</toperation>	
+	<toperation name="SetCmdForPartitionInitialize">
+		<tcall class="comm" method="SetCmdStructData">
+			<cmd_struct name="PartitionInitialize">
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"   value="80"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"   check="80"/>
+					<field name="ErrorCode" 	type="BYTE"/>
+					<field name="Addr" 		type="BYTE[4]"/>
+					<field name="Offset" 		type="BYTE[2]"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>		
+	</toperation>	
+	
+<!-- ***********************************************************************************************
+     ******************************************** TOT *********************************************
+     *********************************************************************************************** -->   
+     	<toperation name="SetCmdForNandImageBadCheck">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="5000" />			
+			<cmd_struct name="NandImageBadCheck">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE" 	value="52" />
+					<field name="addr" 		type="DWORD" />
+					<field name="is_ecc" 		type="BYTE"	value="0" />
+					<field name="bad_blk" 		type="BYTE" 	value="0" />
+					<field name="max_block_cnt_info" 	type="DWORD"	value="0" />
+					<field name="max_block_size_info" 	type="DWORD"	value="0" />
+					<field name="max_page_size_info" 	type="DWORD"	value="0" />
+					<field name="done" 		type="BYTE"	value="0" />
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE" 	check="52"/>
+					<field name="addr" 		type="DWORD" />
+					<field name="is_ecc" 		type="BYTE" />
+					<field name="bad_blk" 		type="BYTE"  />
+					<field name="max_block_cnt_info" 	type="DWORD" />
+					<field name="max_block_size_info" 	type="DWORD" />
+					<field name="max_page_size_info" 	type="DWORD" />
+					<field name="done" 		type="BYTE" />
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>	
+      	<toperation name="SetCmdForNandImageBlockErase">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="5000" />			
+			<cmd_struct name="NandImageBlockErase">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE" 	value="51" />
+					<field name="addr" 		type="DWORD" />
+					<field name="is_ecc" 		type="BYTE"	value="0" />
+					<field name="bad_blk" 		type="BYTE" 	value="0" />
+					<field name="max_block_cnt_info" 	type="DWORD"	value="0" />
+					<field name="max_block_size_info" 	type="DWORD"	value="0" />
+					<field name="max_page_size_info" 	type="DWORD"	value="0" />
+					<field name="done" 		type="BYTE"	value="0" />
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE" 	check="51"/>
+					<field name="addr" 		type="DWORD" />
+					<field name="is_ecc" 		type="BYTE" />
+					<field name="bad_blk" 		type="BYTE"  />
+					<field name="max_block_cnt_info" 	type="DWORD" />
+					<field name="max_block_size_info" 	type="DWORD" />
+					<field name="max_page_size_info" 	type="DWORD" />
+					<field name="done" 		type="BYTE" />
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>	
+      	<toperation name="SetCmdForNandImageWriteHugePage">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="5000" />			
+			<cmd_struct name="NandImageWriteHugePage">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE" 	value="53" />
+					<field name="addr" 		type="DWORD" />
+					<field name="is_ecc" 		type="BYTE" />
+					<field name="bad_blk" 		type="BYTE" 	value="0" />
+					<field name="max_block_cnt_info" 	type="DWORD"	value="0" />
+					<field name="max_block_size_info" 	type="DWORD"	value="0" />
+					<field name="max_page_size_info" 	type="DWORD"	value="0" />
+					<field name="done" 		type="BYTE"	value="0" />
+					<field name="data" 		type="BYTE[16896]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE" 	check="53"/>
+					<field name="addr" 		type="DWORD" />
+					<field name="is_ecc" 		type="BYTE" />
+					<field name="bad_blk" 		type="BYTE"  />
+					<field name="max_block_cnt_info" 	type="DWORD" />
+					<field name="max_block_size_info" 	type="DWORD" />
+					<field name="max_page_size_info" 	type="DWORD" />
+					<field name="done" 		type="BYTE" />
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>	
+      	<toperation name="SetCmdForNandImageWritePage">
+		<tcall class="comm" method="SetCmdStructData">
+			<param name="waiting_time" value="5000" />			
+			<cmd_struct name="NandImageWritePage">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE" 	value="50" />
+					<field name="addr" 		type="DWORD" />
+					<field name="is_ecc" 		type="BYTE" />
+					<field name="bad_blk" 		type="BYTE" 	value="0" />
+					<field name="max_block_cnt_info" 	type="DWORD"	value="0" />
+					<field name="max_block_size_info" 	type="DWORD"	value="0" />
+					<field name="max_page_size_info" 	type="DWORD"	value="0" />
+					<field name="done" 		type="BYTE"	value="0" />
+					<field name="data" 		type="BYTE[2112]"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE" 	check="50"/>
+					<field name="addr" 		type="DWORD" />
+					<field name="is_ecc" 		type="BYTE" />
+					<field name="bad_blk" 		type="BYTE"  />
+					<field name="max_block_cnt_info" 	type="DWORD" />
+					<field name="max_block_size_info" 	type="DWORD" />
+					<field name="max_page_size_info" 	type="DWORD" />
+					<field name="done" 		type="BYTE" />
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>	             
+     
+	<toperation name="FLASH_NandImageInit">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="5000" />			
+			<cmd_struct name="NandImageInit">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"   value="48"/>
+					<field name="addr" 		type="DWORD"   value="0"/>
+					<field name="isECC" 		type="BYTE"   value="0"/>
+					<field name="bad_blk" 		type="BYTE"   value="0"/>
+					<field name="max_block_cnt_info" 	type="DWORD"   value="0"/>
+					<field name="max_block_size_info" 	type="DWORD"   value="0"/>
+					<field name="max_page_size_info" 	type="DWORD"   value="0"/>
+					<field name="done" 		type="BYTE"   value="0"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"   check="48"/>
+					<field name="addr" 		type="DWORD" />
+					<field name="isECC" 		type="BYTE" />
+					<field name="bad_blk" 		type="BYTE" />
+					<field name="max_block_cnt_info" 	type="DWORD" />
+					<field name="max_block_size_info" 	type="DWORD" />
+					<field name="max_page_size_info" 	type="DWORD" />
+					<field name="done" 		type="BYTE" />
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>		
+	</toperation>		
+	<toperation name="FLASH_IsAvailableHugePage">
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="5000" />			
+			<param name="fault_tolerance" value="TRUE" />			
+			<cmd_struct name="IsAvailableHugePage">
+				<req_struct>
+					<field name="cmd_code" 		type="BYTE"   value="53"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 		type="BYTE"  check="53"/>
+					<field name="dummy" 		type="BYTE[19]"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	<toperation name="FLASH_NandImageCmd">
+		<getenv name="cmd_code"/>
+		<getenv name="addr"/>
+		<getenv name="isECC"/>
+		<getenv name="bad_blk"/>
+		<getenv name="max_block_cnt_info"/>
+		<getenv name="max_block_size_info"/>
+		<getenv name="max_page_size_info"/>
+		<getenv name="max_page_cnt"/>
+		<getenv name="done"/>		
+		
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="5000" />			
+			<param name="fault_tolerance" value="TRUE" />			
+			<cmd_struct name="NandImageCmd">
+				<req_struct>
+					<field name="cmd_code" 			type="BYTE"  	value="$cmd_code"/>
+					<field name="addr" 			type="DWORD"  	value="$addr"/>
+					<field name="isECC" 			type="BYTE"   	value="$isECC"/>
+					<field name="bad_blk" 			type="BYTE"   	value="$bad_blk"/>
+					<field name="max_block_cnt_info" 	type="DWORD"   	value="$max_block_cnt_info"/>
+					<field name="max_block_size_info" 	type="DWORD"   	value="$max_block_size_info"/>
+					<field name="max_page_size_info" 	type="DWORD"   	value="$max_page_size_info"/>
+					<field name="max_page_cnt" 		type="BYTE"   	value="$max_page_cnt"/>
+					<field name="done" 			type="BYTE"   	value="$done"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="cmd_code" 			type="BYTE"/>
+					<field name="addr" 			type="DWORD"/>
+					<field name="isECC" 			type="BYTE"/>
+					<field name="bad_blk" 			type="BYTE"/>
+					<field name="max_block_cnt_info" 	type="DWORD"/>
+					<field name="max_block_size_info" 	type="DWORD"/>
+					<field name="max_page_size_info" 	type="DWORD"/>
+					<field name="max_page_cnt" 		type="BYTE"/>
+					<field name="done" 			type="BYTE"/>
+				</rsp_struct>
+			</cmd_struct>
+		</tcall>		
+	</toperation>
+<!-- ***********************************************************************************************
+     ************************************* Device Info *********************************************
+     *********************************************************************************************** -->   
+     	<toperation name="GetBinVersionD">	
+		<tcall class="comm" method="SendRecvPacket">
+		<param name="waiting_time" value="15000" />
+			<cmd_struct name="GetBinVersionD">
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"   value="250"/>
+					<field name="SubCmd" 		type="WORD"   value="71"/>
+					<field name="SubCmd2" 		type="BYTE"   value="0"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"   check="250"/>
+					<field name="SubCmd" 		type="WORD"/>
+					<field name="stat_code" 	type="BYTE"/>
+					<field name="buffer" 		type="BYTE[500]"/>
+				</rsp_struct>	
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	<toperation name="GetPIDD">	
+		<tcall class="comm" method="SendRecvPacket">
+			<param name="waiting_time" value="15000" />
+			<cmd_struct name="GetPIDD">
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"   value="250"/>
+					<field name="SubCmd" 		type="WORD"   value="70"/>
+					<field name="SubCmd2" 		type="BYTE"   value="1"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"   check="250"/>
+					<field name="SubCmd" 		type="WORD"/>
+					<field name="stat_code" 	type="BYTE"/>
+					<field name="buffer" 		type="BYTE[500]"/>
+				</rsp_struct>	
+			</cmd_struct>
+		</tcall>
+	</toperation>
+	<toperation name="GetMEIDD">	
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="GetMEIDD">
+				<param name="waiting_time" value="15000" />
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"   value="250"/>
+					<field name="SubCmd" 		type="WORD"   value="38"/>
+					<field name="item_enum" 	type="WORD"   value="1943"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"   check="250"/>
+					<field name="SubCmd" 		type="WORD"/>
+					<field name="stat_code" 	type="BYTE"/>
+					<field name="nv_enum" 		type="WORD"/>
+					<field name="itemenum" 		type="QWORD"/>
+				</rsp_struct>	
+			</cmd_struct>
+		</tcall>
+	</toperation>          
+	<toperation name="DiagESN">	
+		<tcall class="comm" method="SendRecvPacket">
+			<cmd_struct name="DiagESN">
+				<param name="waiting_time" value="15000" />
+				<req_struct>
+					<field name="Cmd" 		type="BYTE"   value="1"/>
+				</req_struct>
+				<rsp_struct>
+					<field name="Cmd" 		type="BYTE"   check="1"/>
+					<field name="esn" 		type="DWORD"/>
+				</rsp_struct>	
+			</cmd_struct>
+		</tcall>
+	</toperation>      	
+</toperations>
