@@ -5,6 +5,6 @@ Supported phones:
 
 Next phone should get supported:
 
-*LG V40 
+* LG V40 
 
 Read the Releases section for more info.
