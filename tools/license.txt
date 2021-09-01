@@ -1,0 +1,181 @@
+LGE.
+LGUP*
+Software License Agreement
+
+PLEASE READ THIS DOCUMENT CAREFULLY BEFORE USING THE SOFTWARE.
+BY USING THE SOFTWARE YOU ARE AGREEING TO BE BOUND BY THE TERMS
+OF THIS AGREEMENT.  IF YOU DO NOT AGREE TO THE TERMS OF THIS 
+AGREEMENT, PROMPTLY RETURN THE UNUSED SOFTWARE AND ALL OTHER 
+ITEMS FOR A FULL REFUND.
+
+1.  License and Restrictions on Use.
+ 
+LGE (LG Electroincs, Inc., hereby grants you a non-exclusive, 
+fully paid, limited license to use the LG Windows(TM) Download Program software
+and the accompanying documentation (the "Software"), for the purposes of... 
+(1) Upgrading the mobile phone software contained in wireless handsets purchased 
+from LG or its affiliate(s), ("Handsets")
+(2) Updating roaming lists for the Handset(s,) 
+(3) Making changes to and programming the NAM settings for the Handset(s), and 
+(4) Transferring phone book and user data from one Handset to another Handset.  
+You shall not, without the prior written consent of LG, 
+(i) Alter, modify, translate, or adapt any Software, accompanying documentation 
+or create any derivative works based thereon; 
+(ii) Copy any Software (except that you may make one copy for archival purposes); 
+(iii) Assign, sublicense, lease or otherwise transfer the Software in whole or 
+in part; 
+(iv) Use the Software except as specifically contemplated in this Agreement; 
+(v) Combine or merge any portion of the Software with any other software;  
+(vi) Disclose the Software to any third party, or 
+(vii) Use the Software to upgrade any Handset not manufactured and/or sold by LG
+and/or its affiliate(s). The entire right, title and interest in the Software 
+shall remain with LG, and you shall not remove any copyright notices or other 
+legends from the Software or any accompanying documentation.  You shall use the
+Software furnished by LG solely in accordance with this Agreement, and you shall
+not, directly or indirectly, disassemble, decompile, reverse engineer, or analyze
+the physical construction of, the Software or any component thereof for any purpose.
+This Agreement is not a sale of the Software.  
+LG shall have no obligation under this Agreement to provide: 
+(a) Installation of the Software;  
+(b) Any new features or additional software used in conjunction with the Software; or 
+(c) Any maintenance of the Software.
+
+2.  Disclaimer of Warranty.  
+
+THE SOFTWARE IS FURNISHED TO YOU "AS IS" WITHOUT WARRANTY OF 
+ANY KIND.  LG DISCLAIMS AND EXCLUDES ALL WARRANTIES, EXPRESS 
+OR IMPLIED, WITH RESPECT TO THE SOFTWARE, INCLUDING, BUT NOT 
+LIMITED TO, ANY OR ALL IMPLIED WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND/OR ANY WARRANTY WITH 
+REGARD TO ANY CLAIM OF INFRINGEMENT THAT MAY BE PROVIDED IN 
+SECTION 2-312(3) OF THE UNIFORM COMMERCIAL CODE AND/OR ANY 
+OTHER COMPARABLE STATE STATUTE.  SOME STATES DO NOT ALLOW 
+THE EXCLUSION OF IMPLIED WARRANTIES, SO THE ABOVE EXCLUSION 
+MAY NOT APPLY TO YOU.
+3.  Limitation of Liability.  
+
+IN NO EVENT SHALL LG BE LIABLE TO YOU FOR ANY INCIDENTAL, 
+CONSEQUENTIAL OR SPECIAL DAMAGES, INCLUDING BUT NOT LIMITED 
+TO ANY LOST PROFITS, LOST SAVINGS, OR OTHER INCIDENTAL DAMAGES,
+ARISING OUT OF THE USE OR INABILITY TO USE, OR THE DELIVERY
+OR FAILURE TO DELIVER, THE SOFTWARE, EVEN IF LG HAS BEEN 
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.  THE FOREGOING 
+LIMITATION OF LIABILITY SHALL REMAIN IN FULL FORCE AND EFFECT 
+REGARDLESS OF WHETHER YOUR REMEDIES HEREUNDER ARE DETERMINED
+TO HAVE FAILED OF THEIR ESSENTIAL PURPOSE.  FURTHER, THE 
+ENTIRE LIABILITY OF LG, AND THE SOLE AND EXCLUSIVE REMEDY OF
+YOU, FOR ANY CLAIM OR CAUSE OF ACTION ARISING HEREUNDER 
+(WHETHER IN CONTRACT, TORT, OR OTHERWISE) SHALL NOT EXCEED
+THE PURCHASE PRICE PAID FOR THE SOFTWARE WHICH IS THE SUBJECT
+OF SUCH CLAIM OR CAUSE OF ACTION.  SOME STATES DO NOT ALLOW 
+THE EXCLUSION OR LIMITATION OF CONSEQUENTIAL OR CINCIDENTAL 
+DAMAGES, SO THE ABOVE EXCLUSION OR LIMITATION MAY NOT APPLY
+TO YOU.
+
+4.  Termination.  
+
+This license is effective until terminated.  You may terminate this license 
+at any time by destroying the Software and all copies thereof.  This license 
+will terminate immediately without notice from LG if you fail to comply with
+any provision of this Agreement.  Upon termination you must destroy the 
+Software and all copies thereof.
+
+5.  Confidentiality.  
+
+You acknowledge that the Software, all technical documentation delivered to 
+you by LG hereunder, and all other information relating to the design, 
+development, configuration, use, installation, operation and maintenance 
+of the Software constitutes confidential or proprietary information of 
+LG (referred to as "Confidential Information"). You shall not duplicate, 
+use other than in accordance with this Agreement, or disclose to any third 
+person any Confidential Information.
+
+6.  Assignment. 
+
+You shall not assign this Software nor any right or interest hereunder, or 
+delegate any obligation to be performed without LG's prior written consent.
+
+7.  Applicable Law. 
+
+This Agreement shall be governed by the laws of the State of California, 
+excluding the U.N. Convention on International Sale of Goods, and without 
+regard to conflict of laws or principles.  All disputes arising in connection
+therewith shall be heard only by a court of competent jurisdiction in San 
+Diego County, California, and the prevailing party in any legal proceeding 
+shall be entitled to recover its reasonable attorneys' and experts' fees 
+incurred in connection therewith. 
+
+YOU HEREBY WAIVE ANY AND ALL RIGHT TO TRIAL BY JURY IN CONNECTION WITH ANY 
+DISPUTE ARISING OUT OF OR RELATING TO THE TERMS OF THIS AGREEMENT.
+
+8.  Export; Re-export.  
+
+You shall comply with all U.S. export control laws applicable to the Software 
+and the accompanying documentation and/or any associated "technology" 
+furnished to you by LG.  You will not directly or indirectly export or 
+re-export any Software, accompanying documentation, or "technology" without
+obtaining appropriate authorizations from the U.S. Department of Commerce 
+or other appropriate U.S. government agency.
+
+9.  Copyright. 
+
+All title and copyrights in and to the Software (including but not limited to
+any images, photographs, animation, video, audio, music, text and "applets,"
+incorporated into the Software) and any copies of the Software, are owned
+by LG or its suppliers.  All rights not specifically granted under this 
+License are reserved by LG.
+
+10.  High Risk Activities.
+
+The Software is not fault-tolerant and is not designed, manufactured or intended
+for use or resale as on-line control equipment in hazardous environments. 
+Environments requiring fail-safe performance, such as in the operation of 
+nuclear facilities, aircraft navigation or communication systems, air traffic
+control, direct life support machines, or weapons systems, in which the failure
+of the Software could lead directly to death, personal injury, or severe physical
+or environmental damage ("High Risk Activities").  
+LG and its suppliers specifically disclaim any express or implied warranty 
+of fitness for High Risk Activities.
+
+11.  U.S. Government Restricted Rights.  
+
+The Software and documentation are provided with RESTRICTED RIGHTS.  Use, 
+duplication, or disclosure by the United States Government is subject to 
+restrictions as set forth in subparagraph (c)(1) and (2) of the Commercial
+Computer Software-Restricted Rights at 48 CFR 52.227-19, as applicable.  
+Manufacturer is LG Information & Communications, Ltd. 459-9, Kasan-dong, 
+Keumchun-ku, Seoul 153-023, Korea.
+
+12.  Miscellaneous Provisions. 
+
+No addition to or modification to this Agreement shall be effective unless 
+made in writing and signed by the respective representatives of LG and you.  
+Any delay or failure to enforce at any time any provision of this Agreement
+shall not constitute a waiver of the right thereafter to enforce each and 
+every provision thereof.  If any of the provisions of this Agreement are 
+determined to be invalid, illegal, or otherwise unenforceable, the remaining 
+provisions shall remain in full force and effect.  The rights and remedies 
+expressly provided to you herein are not exclusive, but are cumulative and 
+in addition to any other rights and remedies available at law or in equity.  
+The rights and obligations which by their sense and context are intended to 
+survive any termination or expiration of the license shall so survive. 
+By opening the package containing the Software, you acknowledge that you 
+have read this Agreement, understand it, and agree to be bound by its 
+terms and conditions.  Notices or inquiries should be directed to... 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* Windows(TM) is a registered trademark of the MicroSoft(R) Corporation. 
+  All Rights Reserved.
