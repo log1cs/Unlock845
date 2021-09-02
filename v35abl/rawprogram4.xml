@@ -2,4 +2,6 @@
 <data>
 	<program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="eabl.img" label="abl_a" num_partition_sectors="51" physical_partition_number="4" size_in_KB="204" sparse="false" start_byte_hex="0xDD06000" start_sector="56582"/>
 	<program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="eabl.img" label="abl_b" num_partition_sectors="51" physical_partition_number="4" size_in_KB="204" sparse="false" start_byte_hex="0x25DF6000" start_sector="155126"/>
+	<program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="boot.bin" label="boot_a" num_partition_sectors="16384" physical_partition_number="4" size_in_KB="65536" sparse="false" start_byte_hex="0xFF06000" start_sector="65286"/>
+	<program SECTOR_SIZE_IN_BYTES="4096" file_sector_offset="0" filename="boot.bin" label="boot_b" num_partition_sectors="16384" physical_partition_number="4" size_in_KB="65536" sparse="false" start_byte_hex="0x27FF6000" start_sector="163830"/>
 </data>
