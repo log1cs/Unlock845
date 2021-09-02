@@ -17,6 +17,7 @@ USAGE:
 
 2 - Let the tool do the remaining thing, also do not forget to follow the tool steps. (Credit to [vvanloc](https://github.com/vvanloc) for making the tool auto detect the COM port, huge thanks)
 
-3 - Done! Your bootloader got unlocked
+3 - Flash ur phone KDZ 
 
-Voila! Your bootloader got unlocked!
+4 - Done! Your bootloader got unlocked
+
