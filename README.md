@@ -10,6 +10,7 @@ Next phone should get supported:
 Read the Releases section for more info.
 
 You can extract it in where you wanted to. (Huge thanks to [vvanloc](https://github.com/vvanloc) for making this) 
+
 USAGE:
 
 1 - Reboot the phone in EDL mode
