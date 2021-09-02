@@ -9,16 +9,13 @@ Next phone should get supported:
 
 Read the Releases section for more info.
 
-
-Extract it in main C: drive. Directory should be like this after extraction: C:\Unlock845\
-
-
+You can extract it in where you wanted to. (Huge thanks to [vvanloc](https://github.com/vvanloc) for making this) 
 USAGE:
 
 1 - Reboot the phone in EDL mode
 
-2 - Double click on Unlock.bat then enter your COM port (if your port is COM6 then type 6, 11 then type 11, same with others.). After that press on Enter
+2 - Let the tool do the remaining thing, also do not forget to follow the tool steps. (Credit to [vvanloc](https://github.com/vvanloc) for making the tool auto detect the COM port, huge thanks)
 
-3 - Wait for the tool run itself and when it's done follow the guide and reflash the KDZ.
+3 - Done! Your bootloader got unlocked
 
 Voila! Your bootloader got unlocked!
