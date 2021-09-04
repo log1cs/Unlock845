@@ -29,7 +29,7 @@ How to enter EDL Mode on the V30/G7/V40/V50/G8/G8X:
 
 ![ezgif-1-7f9379ed0b3d](https://user-images.githubusercontent.com/60842977/132087777-a1b574f9-399b-485f-874b-0c536166055b.gif)
 
-1 - Hold your Power Button and your Volume Down button till you see the screen goes black
+1 - Connect the cable. Then hold your Power Button and your Volume Down button till you see the screen goes black
 
 2 - As soon as the screen goes black, still hold Power and Vol - , also press Vol + repeatedly.
 
