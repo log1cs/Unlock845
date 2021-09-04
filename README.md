@@ -29,8 +29,19 @@ How to enter EDL Mode on the V30/G7/V40/V50/G8/G8X:
 
 ![ezgif-1-7f9379ed0b3d](https://user-images.githubusercontent.com/60842977/132087777-a1b574f9-399b-485f-874b-0c536166055b.gif)
 
+EN:
+
 1 - Connect the cable. Then hold your Power Button and your Volume Down button till you see the screen goes black
 
 2 - As soon as the screen goes black, still hold Power and Vol - , also press Vol + repeatedly.
 
 3 - In Device Manager it will show you QHSUSB_BULK or Qualcomm HS-USB QLoader 9008(COMx)
+
+VI:
+
+1 - Kết nối cáp từ điện thoại vào máy tính. Sau đó giữ nguồn và giảm âm lượng cho đến khi màn hình đen.
+
+2 - Khi màn hình tắt đi, vẫn giữ Nguồn và giảm âm lượng, và đồng thời bấm tăng âm lượng liên tục.
+
+3 - Trong Device Manager sẽ hiển thị QHSUSB_BULK hoặc Qualcomm HS-USB QLoader 9008(COMx)
+
