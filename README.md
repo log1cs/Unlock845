@@ -27,5 +27,6 @@ USAGE:
 
 How to enter EDL Mode on the V30/G7/V40/V50/G8/G8X:
 
+![Alt text](https://user-images.githubusercontent.com/60842977/132087609-a23ee2b1-a6de-4c74-9d6e-6c5c3997b4b3.mp4)
 
 
