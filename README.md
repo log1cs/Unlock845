@@ -16,7 +16,7 @@ You can extract it in where you wanted to. (Huge thanks to [vvanloc](https://git
 
 - Your phone's KDZ
 - Windows PC
-- An cable with transfer data capable
+- An cable with data transfer
 
 **USAGE:**
 
