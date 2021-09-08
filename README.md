@@ -1,3 +1,5 @@
+IF YOU ARE WINDOWS 7/8.1 USERS THEN USE THE W7_W8.1 VERSION
+
 **ENGLISH**
 
 **Supported phones:** 
