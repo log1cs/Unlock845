@@ -7,13 +7,7 @@ echo ===========================================================================
 
 set currentpath=%~dp0
 
-echo Dang cai dat Qualcomm USB Driver for Mobile Phones
-%currentpath%Prerequisites\QualcommUSBDriver.exe
-echo Dang cai dat LG Mobile Driver
-%currentpath%Prerequisites\LGMobileDriver_WHQL_Ver_4.8.0.exe /s
-echo Dang cai dat Visual Studio Runtime 2013
-%currentpath%Prerequisites\vcredist_x86.exe /s
-%currentpath%Prerequisites\vcredist_x64.exe /s
+
 echo Gio hay ket noi dien thoai o che do EDL(9008), va sau do nhan Enter.
 pause
 powershell -Command "$temp=Get-WmiObject -Class Win32_PnPEntity | where { $_.Description -eq 'Qualcomm HS-USB QDLoader 9008' } | Select-Object Name | out-string;  $temp=[Regex]::Matches($temp, '(?<=\()(.*?)(?=\))') | Select -ExpandProperty Value; $temp.SubString(3, $temp.length-3)" > comport
