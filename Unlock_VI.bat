@@ -32,9 +32,6 @@ timeout 3
 echo Kiem tra tinh trang Unlock Bootloader(neu unlocked:yes thi la mo roi):
 %currentpath%tools\fastboot getvar unlocked
 timeout 5
-echo Dang khoi dong lai vao EDL...
-%currentpath%tools\fastboot oem edl
-timeout 5
 echo Dang nap phan vung...
 %currentpath%tools\fastboot erase laf_a
 %currentpath%tools\fastboot erase abl_a
