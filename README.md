@@ -1,6 +1,6 @@
-** Unlock845 **
+# Unlock845
 
-** This project aimed to unlock your phone bootloader with only one script. Do it at your own risk! **
+**This project aimed to unlock your phone bootloader with only one script. Do it at your own risk!**
 
 **Caution: If you are Windows 7/8.1 users then use the W7_W8.1 version**
 
