@@ -1,9 +1,10 @@
 echo off
-title Unlocking LG 845 devices with just 1 click. Under development.
-echo =======================================================================================================================
-echo 			  	    Unlocking your LG 845 devices bootloader with script                    
-echo 			   Project under GPL-3.0 Public License. Created by Log1cs (github.com/log1cs)
-echo =======================================================================================================================
+title Unlock845 3.0_rev1.0
+mode 800 
+echo ==================================================================================================================
+echo =  LGE Unlock845                     Version: 3.0_rev1.0		        Created by Log1cs (github.com/log1cs) =
+echo =  Project under GPL-3.0 Public License.                                                                         =
+echo ==================================================================================================================
 
 set currentpath=%~dp0
 

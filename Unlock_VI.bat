@@ -1,12 +1,11 @@
 echo off
-title Unlock Bootloader cac thiet bi LG chay Snapdragon 845 bang script. Dang trong giai doan phat trien.
-echo =======================================================================================================================
-echo 			  	       Unlock Bootloader cua LG 845 bang tap lenh (LG G7)                  
-echo 			   Project under GPL-3.0 Public License. Duoc tao boi Log1cs (github.com/log1cs)
-echo =======================================================================================================================
-
+title Unlock845 3.0_rev1.0
+mode 800
+echo ==================================================================================================================
+echo =  LGE Unlock845                     Version: 3.0_rev1.0                   Created by Log1cs (github.com/log1cs) =
+echo =  Project under GPL-3.0 Public License.                                                                         =
+echo ==================================================================================================================
 set currentpath=%~dp0
-
 
 echo Gio hay ket noi dien thoai o che do EDL(9008), va sau do nhan Enter.
 pause
@@ -31,9 +30,6 @@ echo Khoi dong lai bootloader lan cuoi:
 timeout 3
 echo Kiem tra tinh trang Unlock Bootloader(neu unlocked:yes thi la mo roi):
 %currentpath%tools\fastboot getvar unlocked
-timeout 5
-echo Dang khoi dong lai vao EDL...
-%currentpath%tools\fastboot oem edl
 timeout 5
 echo Dang nap phan vung...
 %currentpath%tools\fastboot erase laf_a
