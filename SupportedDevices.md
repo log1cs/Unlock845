@@ -1,6 +1,6 @@
-** Supported devices **
+**Supported devices**
 
-** LG G7 ThinQ **
+**LG G7 ThinQ**
 
 + UNSUPPORTED VARIANT:
 
@@ -23,7 +23,7 @@
 - LM-G710ULM and LM-G710ULMN (US Unlocked, US Unlocked crossflashed to Korea firmware)
 
 
-** LG V40 ** 
+**LG V40** 
 
 * Good things is every variant of V40 are supported.
 
