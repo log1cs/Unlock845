@@ -2,11 +2,17 @@
 
 **This project aimed to unlock your phone bootloader with only one script. Do it at your own risk!**
 
-**Caution: If you are Windows 7/8.1 users then use the W7_W8.1 version**
-
 **Supported phones/Thiết bị được hỗ trợ:** 
 
 [Click here./Bấm vào đây.](https://github.com/log1cs/Unlock845/blob/main/SupportedDevices.md)
+
+# How this script works?
+
+Basically it will flash a Prototype ABL taken from an LGE SDM845 phone and will trigger your phone to Fastboot mode. After that it will flash the FRP Image that has been patched (patched to get OEM Unlock enabled) and will unlock your bootloader in under ~2 minutes then it will reflash all of your phone partition to get you into download mode. After that it will ask for your KDZ (firmware file) to flash in download mode to prevent Fastboot mode loop.
+
+**Caution: If you are Windows 7/8.1 users then use the W7_W8.1 version**
+
+
 
 **Head to the Releases if you want to download the program!**
 
@@ -43,6 +49,11 @@ How to enter EDL Mode on the V30/G7/V40/V50/G8/G8X:
 
 
 **Vietnamese:**
+
+# Script được chạy như thế nào?
+
+Bản chất script sẽ nạp Prototype ABL (được lấy từ 1 máy mẫu dùng chip SDM845 của LGE) trong chế độ EDL. Khi nạp xong thì script sẽ nạp phân vùng FRP đã được patch để mở OEM Unlock và sẽ máy sẽ được unlock không dưới 2 phút. Khi unlock xong thì script sẽ nạp tất cả các phân vùng gốc trong máy lại và nhảy vào Download Mode.
+Trong Download Mode thì script sẽ hỏi người dùng KDZ (file firmware của máy) và nạp để tránh hiện tượng treo ở Fastboot mode.
 
 **Cảnh cáo: Nếu bạn là người dùng Windows 7 và Windows 8.1 thì hãy nhớ sử dụng phiên bản có dòng W7_8.1.**
 
