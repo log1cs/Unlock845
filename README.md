@@ -13,14 +13,13 @@ Basically it will flash a Prototype ABL taken from an LGE SDM845 phone and will 
 **Attention: If you are Windows 7/8.1 users then use the W7_W8.1 version**
 
 
+**Head to Releases if you want to download this script**
 
-**Head to Releases if you want to download this program!**
-
-You can extract it in where you wanted to. (Huge thanks to [vvanloc](https://github.com/vvanloc) for making this) 
+You can extract it everywhere you wanted to. (Huge thanks to [vvanloc](https://github.com/vvanloc) for making this) 
 
 **Preparation**
 
-- Your phone's KDZ
+- Your phone's KDZ (My suggestion: better use a KDZ that ends with 30x in the file name. x here stands for firmware level, and it could be a,b,c,d,e,f,g,h. There might be a newer firmware in the future, but it doesn't matter anyways.)
 - Windows PC
 - A cable with data transfer
 
@@ -47,11 +46,12 @@ How to enter EDL Mode on the V30/G7/V40/V50/G8/G8X:
 3 - Go to Device Manager, it will show you QHSUSB_BULK or Qualcomm HS-USB QLoader 9008(COMx)
 
 
-** FAQ: **
+**FAQ:**
 
-** My phone showing Press any key to shut down, what should i do? **
+**My phone showing Press any key to shut down, what should i do?**
 
-Use the FastbootFix included in the folder. Run it as administrator and it will work.
+Use the FastbootFix included in the folder then reboot your phone in bootloader mode again. 
+Run FastbootFix as administrator and it will work.
 
 **Vietnamese:**
 
@@ -72,21 +72,21 @@ Trong Download Mode thì script sẽ hỏi người dùng KDZ (file firmware c�
 
 
 
-**Hãy vào phần Releases nếu bạn muốn tải phần mềm này!**
+**Tải phần mềm ở phần Releases.**
 
-Bạn có thể giải nén ở bất cứ nơi nào. (Hết sức cảm ơn [vvanloc](https://github.com/vvanloc) đã làm ra thứ này) 
+Bạn có thể giải nén ở đâu cũng được. (Cảm ơn [vvanloc](https://github.com/vvanloc) vì phần tự đổng scan cổng USB) 
 
  **Chuẩn bị**
 
-- KDZ cho điện thoại của bạn
+- 1 file KDZ (tốt nhất nên tìm các bản KDZ có đuôi từ 30 (a->h) để được đảm bảo sự an toàn cao nhất)
 - Windows PC
-- Một cái cáp có khả năng truyền dữ liệu
+- Một cọng cáp có khả năng truyền dữ liệu
 
 **Cách sử dụng**
 
-1 - Khởi động lại vào EDL Mode.
+1 - Khởi động điện thoại của bạn vào EDL Mode.
 
-2 - Để công cụ làm nốt phần còn lại. Và hãy làm theo chỉ dẫn của nó.
+2 - Để tool làm nốt phần còn lại. Và hãy làm theo chỉ dẫn của tool.
 
 3 - Kéo thả KDZ vào khi được hỏi và bấm Enter.
 
@@ -100,11 +100,13 @@ Bạn có thể giải nén ở bất cứ nơi nào. (Hết sức cảm ơn [vv
 
 2 - Khi màn hình tắt đi, vẫn giữ Nguồn và giảm âm lượng, hãy bấm tăng âm lượng liên tục.
 
-3 - Vào Device Manager, sẽ hiển thị QHSUSB_BULK hoặc Qualcomm HS-USB QLoader 9008(COMx)
+3 - Vào Device Manager, bạn sẽ thấy QHSUSB_BULK hoặc Qualcomm HS-USB QLoader 9008(COMx)
 
 
-** Câu hỏi thường gặp: **
+**Câu hỏi thường gặp:**
 
-** Điện thoại của mình hiện "Press any key to shut down", mình phải làm thế nào? **
+**Trên điện thoại hiện "Press any key to shut down", tôi phải làm thế nào?**
 
-Dùng công cụ FastbootFix đi kèm trong thư mục. Chạy nó với quyền Admin và nó sẽ hoạt động.
+Dùng FastbootFix đặt trong thư mục gốc của phần mềm, khởi động lại máy vào bootloader.
+
+Lưu ý: Nhớ chạy FastbootFix dưới quyền administrator
