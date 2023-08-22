@@ -38,3 +38,12 @@
 - LM-V405UA0 (US Cellular)
 
 - LM-V405EBW and LM-V405EAW (HKG, SGP, AU, EU, CH, AU, NZL)
+
+**LG Velvet** 
+
++ Supported variant:
+
+- LM-G910EMW (Velvet 4G)
+
+
+
