@@ -1,10 +1,12 @@
 **Supported devices**
 
-**LG G7 ThinQ**
-
-+ UNSUPPORTED VARIANT:
+**Unsupported variant:**
 
 - LM-G710TM (T-Mobile variant)
+
+- LM-V405TAB (T-Mobile) (Experimental)
+
+**LG G7 ThinQ**
 
 + Supported variant:
 
@@ -23,9 +25,7 @@
 - LM-G710ULM and LM-G710ULMN (US Unlocked, US Unlocked crossflashed to Korea firmware)
 
 
-**LG V40** 
-
-* Good things is every variant of V40 are supported.
+**LG V40 (Work in progress)** 
 
 + Supported variant:
 
@@ -33,17 +33,12 @@
 
 - LM-V405UA (Sprint, AT&T, Verizon)
 
-- LM-V405TAB (T-Mobile) (Experimental)
-
 - LM-V405UA0 (US Cellular)
 
 - LM-V405EBW and LM-V405EAW (HKG, SGP, AU, EU, CH, AU, NZL)
 
-**LG Velvet** 
+**LG Velvet (Work in progress)** 
 
 + Supported variant:
 
 - LM-G910EMW (Velvet 4G)
-
-
-
