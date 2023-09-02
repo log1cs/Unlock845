@@ -74,7 +74,7 @@ Trong Download Mode thì script sẽ hỏi người dùng KDZ (file firmware c�
 
 **Tải phần mềm ở phần Releases.**
 
-Bạn có thể giải nén ở đâu cũng được. (Cảm ơn [vvanloc](https://github.com/vvanloc) vì phần tự đổng scan cổng USB) 
+Bạn có thể giải nén ở đâu cũng được. (Cảm ơn [vvanloc](https://github.com/vvanloc) vì phần tự động scan cổng USB) 
 
  **Chuẩn bị**
 
