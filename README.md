@@ -8,7 +8,7 @@ The script does not support Windows 7 and 8.1.
 
 ## How does this script works?
 
-It'll flash an unsigned Prototype ABL taken from a V35 Oreo prototype version to your phone.
+It'll flash an unsigned Oreo Prototype ABL taken from a V35 prototype version to your phone.
 
 Does it brick your phone? No.
 
